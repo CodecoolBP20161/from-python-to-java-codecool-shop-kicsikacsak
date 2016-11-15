@@ -36,6 +36,15 @@
 <div class="container">
     <div class="well well-sm">
         <strong th:text="${category.name}">Category Title</strong>
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
+                <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+
+                <li th:each="categ : ${allcategories}"><a href="/filter" id="tablet" th:attr="href='/filter' + ${categ.id}" th:text="${categ.name}">Tablet</a></li>
+
+            </ul>
+        </div>
     </div>
 
     <div id="products" class="row list-group">

@@ -14,7 +14,9 @@ import spark.Request;
 import spark.Response;
 import spark.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class ProductController {
@@ -30,8 +32,10 @@ public class ProductController {
 
         params.put("category", productCategoryDataStore.find(1));
         params.put("products", productDataStore.getAll());
+        params.put("allcategories", productCategoryDataStore.getAll());
         System.out.println(params);
         return new ModelAndView(params, "product/index");
     }
+    
 
 }

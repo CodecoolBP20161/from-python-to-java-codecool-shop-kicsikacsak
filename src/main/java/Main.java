@@ -19,6 +19,12 @@ public class Main {
         // populate some data for the memory storage
         populateData();
 
+        get("/filter", (request, response) -> {
+            // Show something
+            return "hello " + request.queryParams("tablet");             // the attributes list
+
+        });
+
         // Always start with more specific routes
         get("/hello", (req, res) -> "Hello World");
 
