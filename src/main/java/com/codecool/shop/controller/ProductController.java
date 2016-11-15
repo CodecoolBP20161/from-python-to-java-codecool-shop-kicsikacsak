@@ -36,6 +36,13 @@ public class ProductController {
         System.out.println(params);
         return new ModelAndView(params, "product/index");
     }
-    
+
+    public static ModelAndView renderProductsByCategory(Request request, Response response) {
+        System.out.println("Ez az értéke a visszakapottnak" + request.params(":id"));
+
+        Map params = new HashMap<>();
+        return new ModelAndView(params, "product/index");
+
+    }
 
 }
