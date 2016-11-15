@@ -25,6 +25,7 @@ public class Main {
         // Always add generic routes to the end
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
 
+
         // Add this line to your project to enable the debug screen
         enableDebugScreen();
     }
@@ -45,10 +46,16 @@ public class Main {
         ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
         productCategoryDataStore.add(tablet);
 
+        //setting up a category for testing
+        ProductCategory mobile = new ProductCategory("Mobil", "Hardware", "A freakin mobile phone.");
+        productCategoryDataStore.add(mobile);
+
         //setting up products and printing it
         productDataStore.add(new Product("Amazon Fire", 49.9f, "USD", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", tablet, amazon));
         productDataStore.add(new Product("Lenovo IdeaPad Miix 700", 479, "USD", "Keyboard cover is included. Fanless Core m5 processor. Full-size USB ports. Adjustable kickstand.", tablet, lenovo));
         productDataStore.add(new Product("Amazon Fire HD 8", 89, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon));
+        productDataStore.add(new Product("Amazon Mobile", 49.9f, "HUF", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", mobile, amazon));
+
 
     }
 
