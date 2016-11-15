@@ -10,6 +10,7 @@ import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
+import com.sun.org.apache.xpath.internal.SourceTree;
 import spark.Request;
 import spark.Response;
 import spark.ModelAndView;
@@ -27,8 +28,6 @@ public class ProductController {
 
         Map params = new HashMap<>();
 
-        System.out.println(productCategoryDataStore.getAll().size());
-
 
         params.put("category", productCategoryDataStore.find(1));
         params.put("products", productDataStore.getAll());
@@ -38,9 +37,20 @@ public class ProductController {
     }
 
     public static ModelAndView renderProductsByCategory(Request request, Response response) {
-        System.out.println("Ez az értéke a visszakapottnak" + request.params(":id"));
+//        System.out.println("Ez az értéke a visszakapottnak " + request.params(":id"));
+
+        ProductDao productDataStore = ProductDaoMem.getInstance();
+        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
 
         Map params = new HashMap<>();
+
+        //filter by the request id.
+        params.put("category", productCategoryDataStore.find(Integer.parseInt(request.params(":id"))));
+        params.put("products", productDataStore.getBy(productCategoryDataStore.find(Integer.parseInt(request.params(":id")))));
+        params.put("allcategories", productCategoryDataStore.getAll());
+
+        System.out.println(params);
+
         return new ModelAndView(params, "product/index");
 
     }
