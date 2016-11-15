@@ -19,11 +19,8 @@ public class Main {
         // populate some data for the memory storage
         populateData();
 
-        get("/filter", (request, response) -> {
-            // Show something
-            return "hello " + request.queryParams("tablet");             // the attributes list
-
-        });
+        // filter the products by category id
+        get("/filter/:id", ProductController ::renderProductsByCategory, new ThymeleafTemplateEngine());
 
         // Always start with more specific routes
         get("/hello", (req, res) -> "Hello World");
