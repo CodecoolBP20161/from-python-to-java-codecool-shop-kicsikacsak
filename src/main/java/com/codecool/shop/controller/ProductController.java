@@ -6,6 +6,7 @@ import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.model.Cart;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -19,6 +20,8 @@ public class ProductController {
     private static void eventHandler(SupplierDao supplierDataStore, ProductCategoryDao productCategoryDataStore, Map params) {
         params.put("allcategories", productCategoryDataStore.getAll());
         params.put("allsuppliers", supplierDataStore.getAll());
+        params.put("cartlength", Cart.allProducts());
+
     }
 
 
@@ -36,6 +39,7 @@ public class ProductController {
 
         return SupplierDaoMem.getInstance();
     }
+
 
     public static ModelAndView renderProducts(Request req, Response res) {
 
