@@ -33,26 +33,36 @@
     <h1>Codecool Shop</h1>
 </div>
 
+
 <div class="container">
     <div class="well well-sm">
         <strong th:text="${category.name}">Category Title</strong>
-        <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Category
-                <span class="caret"></span></button>
-            <ul class="dropdown-menu">
 
-                <li th:each="categ : ${allcategories}"><a href="/filter" th:attr="href='/filter/' + ${categ.id}" th:text="${categ.name}">Tablet</a></li>
+        <div class="button-box">
+            <button type="button" class="btn btn-default btn-sm pull-right">
+                <span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart
+            </button>
 
-            </ul>
-        </div>
-        <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Supplier
-                <span class="caret"></span></button>
-            <ul class="dropdown-menu">
 
-                <li th:each="supp : ${allsuppliers}"><a href="/filter" id="tablet" th:attr="href='/supplier/' + ${supp.id}" th:text="${supp.name}">Amazon</a></li>
+            <div class="btn-group">
 
-            </ul>
+
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Category
+                        <span class="caret"></span></button>
+                    <div class="dropdown-menu">
+
+                        <p th:each="categ : ${allcategories}"><a href="/filter" th:attr="href='/filter/' + ${categ.id}" th:text="${categ.name}">Tablet</a></p>
+                    </div>
+</div>
+                <div class="btn-group">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Supplier
+                        <span class="caret"></span></button>
+                <div class="dropdown-menu">
+
+                        <p th:each="supp : ${allsuppliers}"><a href="/filter" id="tablet" th:attr="href='/supplier/' + ${supp.id}" th:text="${supp.name}">Amazon</a></p>
+                </div>
+
+            </div>
         </div>
     </div>
 
