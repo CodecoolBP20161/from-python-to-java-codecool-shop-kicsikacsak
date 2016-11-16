@@ -5,10 +5,16 @@ import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
+import spark.Request;
+import spark.Response;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
@@ -29,6 +35,25 @@ public class Main {
         get("/filter/:id", ProductController ::renderProductsByCategory, new ThymeleafTemplateEngine());
 
         get("/supplier/:id", ProductController ::renderProductsBySupplier, new ThymeleafTemplateEngine());
+
+        post("/cart", (Request req, Response res) -> {
+
+            Product product = ProductDaoMem.getInstance().find(Integer.parseInt(req.queryParams("prodid")));
+            Cart cart = new Cart();
+
+            cart.add(product);
+            System.out.println(cart.getList().size());
+            res.redirect("/");
+            return "";
+        });
+
+//        get("/session/", (Request req, Response res) -> {
+//            String value = "";
+//            if ( req.session().attribute("id") != null ) {
+//                value += req.session().attribute("id");
+//            }
+//            return "Session id: " + req.session().id().toString() + "/ value: " + value;
+//        });
 
         // Always start with more specific routes
         get("/hello", (req, res) -> "Hello World");

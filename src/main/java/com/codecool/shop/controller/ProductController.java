@@ -6,6 +6,7 @@ import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.model.Cart;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -37,6 +38,7 @@ public class ProductController {
         return SupplierDaoMem.getInstance();
     }
 
+
     public static ModelAndView renderProducts(Request req, Response res) {
 
         Map params = new HashMap<>();
@@ -44,6 +46,7 @@ public class ProductController {
 
         params.put("category", getProductCategoryDao().find(1));
         params.put("products", getProductDao().getAll());
+        params.put("cartlength", Cart.getList().size());
         eventHandler(getSupplierDao(), getProductCategoryDao(), params);
 
         return new ModelAndView(params, "product/index");
@@ -76,4 +79,28 @@ public class ProductController {
 
     }
 
+    public static ModelAndView renderCart(Request req, Response res) {
+        try {
+
+            System.out.println(req.session().attribute("cart").toString());
+
+        } catch (NullPointerException e) {
+
+        }
+
+
+
+        System.out.println("hi"+req.queryParams("id"));
+
+
+        Map params = new HashMap<>();
+
+
+        params.put("category", getProductCategoryDao().find(1));
+        params.put("products", getProductDao().getAll());
+        eventHandler(getSupplierDao(), getProductCategoryDao(), params);
+
+        return new ModelAndView(params, "product/index");
+
+    }
 }

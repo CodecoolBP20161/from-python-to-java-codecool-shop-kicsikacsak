@@ -40,7 +40,8 @@
 
         <div class="button-box">
             <button type="button" class="btn btn-default btn-sm pull-right">
-                <span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart
+                <p th:text="${cartlength} + '  Shopping Cart'">Shopping Cart</p><span class="glyphicon glyphicon-shopping-cart"></span>
+
             </button>
 
 
@@ -53,7 +54,7 @@
 
                         <p th:each="categ : ${allcategories}"><a href="/filter" th:attr="href='/filter/' + ${categ.id}" th:text="${categ.name}">Tablet</a></p>
                     </div>
-</div>
+            </div>
                 <div class="btn-group">
                     <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Supplier
                         <span class="caret"></span></button>
@@ -79,7 +80,13 @@
                             <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                         </div>
                         <div class="col-xs-12 col-md-6">
-                            <a class="btn btn-success" href="#">Add to cart</a>
+                            <form action="/cart" method="post">
+
+                                <input type="hidden" name="prodid" value="" th:attr="value=${prod.id}"></input>
+
+                                <button class="btn btn-success" type="submit">Add to cart</button>
+
+                            </form>
                         </div>
                     </div>
                 </div>
