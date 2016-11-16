@@ -42,7 +42,7 @@ public class Main {
             Cart cart = new Cart();
 
             cart.add(product);
-            System.out.println(cart.getList().size());
+            System.out.println(Cart.allProducts());
             res.redirect("/");
             return "";
         });

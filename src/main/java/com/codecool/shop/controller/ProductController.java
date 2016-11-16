@@ -20,6 +20,8 @@ public class ProductController {
     private static void eventHandler(SupplierDao supplierDataStore, ProductCategoryDao productCategoryDataStore, Map params) {
         params.put("allcategories", productCategoryDataStore.getAll());
         params.put("allsuppliers", supplierDataStore.getAll());
+        params.put("cartlength", Cart.allProducts());
+
     }
 
 
@@ -46,7 +48,6 @@ public class ProductController {
 
         params.put("category", getProductCategoryDao().find(1));
         params.put("products", getProductDao().getAll());
-        params.put("cartlength", Cart.getList().size());
         eventHandler(getSupplierDao(), getProductCategoryDao(), params);
 
         return new ModelAndView(params, "product/index");
@@ -79,28 +80,4 @@ public class ProductController {
 
     }
 
-    public static ModelAndView renderCart(Request req, Response res) {
-        try {
-
-            System.out.println(req.session().attribute("cart").toString());
-
-        } catch (NullPointerException e) {
-
-        }
-
-
-
-        System.out.println("hi"+req.queryParams("id"));
-
-
-        Map params = new HashMap<>();
-
-
-        params.put("category", getProductCategoryDao().find(1));
-        params.put("products", getProductDao().getAll());
-        eventHandler(getSupplierDao(), getProductCategoryDao(), params);
-
-        return new ModelAndView(params, "product/index");
-
-    }
 }

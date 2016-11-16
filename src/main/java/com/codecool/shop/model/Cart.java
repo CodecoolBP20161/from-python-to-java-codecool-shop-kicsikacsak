@@ -1,6 +1,7 @@
 package com.codecool.shop.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -10,16 +11,26 @@ import java.util.List;
 
 public class Cart {
 
-    private static List<Product> productids = new ArrayList<>();
+    private static HashMap<Product, Integer> products = new HashMap<>();
 
     public Cart(){}
 
-    public static List getList() {
-        return productids;
+    public static Integer allProducts() {
+        Integer sum = 0;
+        for (Integer item : products.values()) {
+            sum += item;
+        }
+        return sum;
     }
 
     public void add(Product product) {
-        productids.add(product);
+
+        if (products.containsKey(product)) {
+            products.put(product, products.get(product) + 1);
+
+        } else {
+            products.put(product, 1);
+        }
     }
 
 
