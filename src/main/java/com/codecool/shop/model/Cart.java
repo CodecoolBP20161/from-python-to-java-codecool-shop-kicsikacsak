@@ -21,6 +21,7 @@ public class Cart {
     public Cart() {
     }
 
+    //turns back the sum of the products
     public Integer allProducts() {
         Integer sum = 0;
         for (Integer item : this.products.values()) {
@@ -29,6 +30,7 @@ public class Cart {
         return sum;
     }
 
+    //Adding a product to a hashmap, if the products is already a key, just ++ the quantity
     public void add(Product product) {
 
         if (products.containsKey(product)) {
@@ -52,10 +54,12 @@ public class Cart {
         }
     }
 
+    //return the product hashmap
     public HashMap getProducts() {
         return products;
     }
 
+    //return the total sum of the product prices
     public Float getTotalSum() {
 
         try{
