@@ -1,5 +1,5 @@
 import com.codecool.shop.controller.ProductController;
-import com.codecool.shop.model.ExampleData;
+import com.codecool.shop.datafiller.ExampleData;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
 import static spark.Spark.*;
