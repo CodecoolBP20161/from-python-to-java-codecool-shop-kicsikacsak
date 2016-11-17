@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class ProductController {
 
-
+    //handle the basic rendering, and the session
     private static void eventHandler(SupplierDao supplierDataStore, ProductCategoryDao productCategoryDataStore, Map params, Request req) {
         params.put("allcategories", productCategoryDataStore.getAll());
         params.put("allsuppliers", supplierDataStore.getAll());

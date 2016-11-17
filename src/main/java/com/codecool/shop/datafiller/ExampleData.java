@@ -7,6 +7,8 @@ import com.codecool.shop.model.Supplier;
 /**
  * Created by doramedgyasszay on 2016. 11. 16..
  */
+
+
 public class ExampleData {
 
     public static void populateData(){
