@@ -1,6 +1,12 @@
 import com.codecool.shop.controller.ProductController;
+import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.datafiller.ExampleData;
+import com.codecool.shop.model.Cart;
+import com.codecool.shop.model.Product;
+import spark.Request;
+import spark.Response;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
+
 
 import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
@@ -21,6 +27,28 @@ public class Main {
         get("/filter/:id", ProductController::renderProductsByCategory, new ThymeleafTemplateEngine());
 
         get("/supplier/:id", ProductController::renderProductsBySupplier, new ThymeleafTemplateEngine());
+
+        post("/cart", (Request req, Response res) -> {
+
+            Product product = ProductDaoMem.getInstance().find(Integer.parseInt(req.queryParams("prodid")));
+            Cart cart = null;
+
+             if (req.session().attribute("cart") == null) {
+                 cart = new Cart();
+             } else {
+                 cart = req.session().attribute("cart");
+             }
+
+            cart.add(product);
+
+            req.session().attribute("cart", cart);
+
+
+            System.out.println(cart.allProducts());
+            res.redirect("/");
+            return "";
+        });
+
 
         // Always start with more specific routes
         get("/hello", (req, res) -> "Hello World");
