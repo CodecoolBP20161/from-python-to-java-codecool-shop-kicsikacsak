@@ -47,7 +47,7 @@
                         <div class="modal-body">
                             <p th:text= "'Your Shopping Cart contains '+ ${cartlength} + ' items'">Shopping Cart Content</p>
                             <ul class="list-group">
-                                <table style="width:100%">
+                                <table class="table" style="width:100%">
                                     <tr>
                                         <th>Name</th>
                                         <th>Price</th>
@@ -61,8 +61,8 @@
                                         <td th:text="${instance.key.defaultPrice * instance.value} + ' ' + ${instance.key.defaultCurrency}">subtotalprize</td>
                                     </tr>
                                 </table>
-                                <p th:text="'Your total price: ' + ${totalsum} + ' USD'">asd</p>
                             </ul>
+                            <strong th:text=" 'Your total price: ' + ${totalsum} + ' USD'">asd</strong>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
