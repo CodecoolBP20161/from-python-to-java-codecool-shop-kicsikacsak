@@ -17,10 +17,19 @@ import java.util.Map;
 public class ProductController {
 
 
-    private static void eventHandler(SupplierDao supplierDataStore, ProductCategoryDao productCategoryDataStore, Map params) {
+    private static void eventHandler(SupplierDao supplierDataStore, ProductCategoryDao productCategoryDataStore, Map params, Request req) {
         params.put("allcategories", productCategoryDataStore.getAll());
         params.put("allsuppliers", supplierDataStore.getAll());
-        params.put("cartlength", Cart.allProducts());
+
+        Integer cartlength = 0;
+        try {
+            Cart cart = req.session().attribute("cart");
+            cartlength = cart.allProducts();
+        } catch (NullPointerException e) {
+
+        }
+        params.put("cartlength", cartlength);
+
 
     }
 
@@ -48,7 +57,7 @@ public class ProductController {
 
         params.put("category", getProductCategoryDao().find(1));
         params.put("products", getProductDao().getAll());
-        eventHandler(getSupplierDao(), getProductCategoryDao(), params);
+        eventHandler(getSupplierDao(), getProductCategoryDao(), params, req);
 
         return new ModelAndView(params, "product/index");
     }
@@ -60,7 +69,7 @@ public class ProductController {
         //filter by the request id.
         params.put("category", getProductCategoryDao().find(Integer.parseInt(request.params(":id"))));
         params.put("products", getProductDao().getBy(getProductCategoryDao().find(Integer.parseInt(request.params(":id")))));
-        eventHandler(getSupplierDao(), getProductCategoryDao(), params);
+        eventHandler(getSupplierDao(), getProductCategoryDao(), params, request);
 
 
         return new ModelAndView(params, "product/index");
@@ -74,7 +83,7 @@ public class ProductController {
         //filter by the request id.
         params.put("category", getSupplierDao().find(Integer.parseInt(request.params(":id"))));
         params.put("products", getProductDao().getBy(getSupplierDao().find(Integer.parseInt(request.params(":id")))));
-        eventHandler(getSupplierDao(), getProductCategoryDao(), params);
+        eventHandler(getSupplierDao(), getProductCategoryDao(), params, request);
 
         return new ModelAndView(params, "product/index");
 
