@@ -44,7 +44,6 @@ public class Main {
             req.session().attribute("cart", cart);
 
 
-            System.out.println(cart.allProducts());
             res.redirect("/");
             return "";
         });
