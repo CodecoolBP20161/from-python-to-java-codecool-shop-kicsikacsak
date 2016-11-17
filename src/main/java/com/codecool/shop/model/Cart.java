@@ -11,13 +11,13 @@ import java.util.List;
 
 public class Cart {
 
-    private static HashMap<Product, Integer> products = new HashMap<>();
+    private HashMap<Product, Integer> products = new HashMap<>();
 
     public Cart(){}
 
-    public static Integer allProducts() {
+    public Integer allProducts() {
         Integer sum = 0;
-        for (Integer item : products.values()) {
+        for (Integer item : this.products.values()) {
             sum += item;
         }
         return sum;

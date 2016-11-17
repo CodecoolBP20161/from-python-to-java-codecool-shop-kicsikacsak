@@ -13,7 +13,9 @@ import spark.Request;
 import spark.Response;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static spark.Spark.*;
@@ -39,21 +41,24 @@ public class Main {
         post("/cart", (Request req, Response res) -> {
 
             Product product = ProductDaoMem.getInstance().find(Integer.parseInt(req.queryParams("prodid")));
-            Cart cart = new Cart();
+            Cart cart = null;
+
+             if (req.session().attribute("cart") == null) {
+                 cart = new Cart();
+             } else {
+                 cart = req.session().attribute("cart");
+             }
 
             cart.add(product);
-            System.out.println(Cart.allProducts());
+
+            req.session().attribute("cart", cart);
+
+
+            System.out.println(cart.allProducts());
             res.redirect("/");
             return "";
         });
 
-//        get("/session/", (Request req, Response res) -> {
-//            String value = "";
-//            if ( req.session().attribute("id") != null ) {
-//                value += req.session().attribute("id");
-//            }
-//            return "Session id: " + req.session().id().toString() + "/ value: " + value;
-//        });
 
         // Always start with more specific routes
         get("/hello", (req, res) -> "Hello World");
