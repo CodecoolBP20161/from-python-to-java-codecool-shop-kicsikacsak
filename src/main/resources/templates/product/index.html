@@ -30,39 +30,52 @@
 <body>
 
 <div class="jumbotron text-center">
-    <h1>Codecool Shop</h1>
+    <form action="/" method="get">
+    <button type="submit" class="btn-custom">
+        <p>Codecool Shop</p>
+    </button>
+    </form>
+
 </div>
 
 
 <div class="container">
-    <div class="well well-sm">
-        <strong th:text="${category.name}">Category Title</strong>
-
-        <div class="button-box">
-            <button type="button" class="btn btn-default btn-sm pull-right">
-                <p th:text="${cartlength} + '  Shopping Cart'">Shopping Cart</p><span class="glyphicon glyphicon-shopping-cart"></span>
-
-            </button>
+    <div class="conainer-custom">
+        <div class="row">
 
 
+        <div class="col-sm-6">
             <div class="btn-group">
-
-
-                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Category
-                        <span class="caret"></span></button>
-                    <div class="dropdown-menu">
-
-                        <p th:each="categ : ${allcategories}"><a href="/filter" th:attr="href='/filter/' + ${categ.id}" th:text="${categ.name}">Tablet</a></p>
-                    </div>
+                <button class="btn dropdown-toggle" id="filter1" type="button" data-toggle="dropdown">Category
+                    <span class="caret"></span></button>
+                    <ul class="dropdown-menu dropdown-menu-left">
+                        <li th:each="categ : ${allcategories}"><a href="/filter" th:attr="href='/filter/' + ${categ.id}" th:text="${categ.name}">Tablet</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation"><a href="/">All</a></li>
+                    </ul>
             </div>
-                <div class="btn-group">
-                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Supplier
-                        <span class="caret"></span></button>
-                <div class="dropdown-menu">
+            <div class="btn-group">
+                <button class="btn dropdown-toggle" id="filter2" type="button" data-toggle="dropdown">Supplier
+                    <span class="caret"></span></button>
+                    <ul class="dropdown-menu dropdown-menu-left">
+                        <li th:each="supp : ${allsuppliers}"><a href="/filter" id="tablet" th:attr="href='/supplier/' + ${supp.id}" th:text="${supp.name}">Amazon</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation"><a href="/">All</a></li>
+                    </ul>
+            </div>
+        </div>
+            <div class="col-sm-6">
 
-                        <p th:each="supp : ${allsuppliers}"><a href="/filter" id="tablet" th:attr="href='/supplier/' + ${supp.id}" th:text="${supp.name}">Amazon</a></p>
+                <div class="button-box">
+                    <button type="button" class="btn btn-default btn-sm " id="cart">
+                        <p th:text="${cartlength} + '  Shopping Cart'">Shopping Cart</p><span class="glyphicon glyphicon-shopping-cart"></span>
+                    </button>
                 </div>
-
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12" id="category-title">
+                <strong th:text="${category.name}">Category Title</strong>
             </div>
         </div>
     </div>

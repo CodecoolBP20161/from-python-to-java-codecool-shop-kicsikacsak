@@ -22,7 +22,7 @@ public class ExampleData {
         //setting up a new product category
         ProductCategory tablet = factory.getInstance().productCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
         ProductCategory mobile = factory.getInstance().productCategory("Smartphone", "Mobile Devices", "A freakin mobile phone.");
-        ProductCategory cases = factory.getInstance().productCategory("Cases", "Other", "Cases and covers for your devices.");
+        ProductCategory cases = factory.getInstance().productCategory("Case", "Other", "Cases and covers for your devices.");
 
         //setting up products and printing it
         factory.getInstance().newProduct("Amazon Fire", 49.9f, "USD", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", tablet, amazon);
