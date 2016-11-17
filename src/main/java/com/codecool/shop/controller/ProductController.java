@@ -22,13 +22,22 @@ public class ProductController {
         params.put("allsuppliers", supplierDataStore.getAll());
 
         Integer cartlength = 0;
+        HashMap cartContent = null;
+        Float totalSum = 0.0f;
         try {
             Cart cart = req.session().attribute("cart");
+            System.out.println(cart.getTotalSum());
             cartlength = cart.allProducts();
+            cartContent = cart.getProducts();
+            totalSum = cart.getTotalSum();
+
         } catch (NullPointerException e) {
 
         }
         params.put("cartlength", cartlength);
+        params.put("cart", cartContent);
+        params.put("totalsum", totalSum);
+        System.out.println(cartContent);
 
 
     }

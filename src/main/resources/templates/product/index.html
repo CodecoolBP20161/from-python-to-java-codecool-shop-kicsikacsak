@@ -40,9 +40,44 @@
 
 
 <div class="container">
+
     <div class="conainer-custom">
         <div class="row">
 
+
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">My Shopping Cart</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p th:text= "'Your Shopping Cart contains '+ ${cartlength} + ' items'">Shopping Cart Content</p>
+                            <ul class="list-group">
+                                <table class="table" style="width:100%">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Subtotal Price</th>
+                                    </tr>
+                                    <tr th:each="instance : ${cart}">
+                                        <td th:text="${instance.key.name}">Jill</td>
+                                        <td th:text="${instance.key.price}">Smith</td>
+                                        <td th:text="${instance.value}">50</td>
+                                        <td th:text="${instance.key.defaultPrice * instance.value} + ' ' + ${instance.key.defaultCurrency}">subtotalprize</td>
+                                    </tr>
+                                </table>
+                            </ul>
+                            <strong th:text=" 'Your total price: ' + ${totalsum} + ' USD'">asd</strong>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         <div class="col-sm-6">
             <div class="btn-group">
@@ -77,7 +112,11 @@
             <div class="col-sm-12" id="category-title">
                 <strong th:text="${category.name}">Category Title</strong>
             </div>
-        </div>
+            <div align="right">
+                <button type="button" class="btn btn-default btn-sm pull-right" data-toggle="modal" data-target="#myModal">
+                    <p th:text="${cartlength} + '  Shopping Cart'">Shopping Cart</p><span class="glyphicon glyphicon-shopping-cart"></span>
+                </button>
+            </div>
     </div>
 
     <div id="products" class="row list-group">

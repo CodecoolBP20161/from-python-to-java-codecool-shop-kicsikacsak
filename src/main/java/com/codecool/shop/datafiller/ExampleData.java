@@ -25,7 +25,7 @@ public class ExampleData {
         ProductCategory cases = factory.getInstance().productCategory("Case", "Other", "Cases and covers for your devices.");
 
         //setting up products and printing it
-        factory.getInstance().newProduct("Amazon Fire", 49.9f, "USD", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", tablet, amazon);
+        factory.getInstance().newProduct("Amazon Fire", 49, "USD", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", tablet, amazon);
         factory.getInstance().newProduct("Lenovo IdeaPad Miix 700", 479, "USD", "Keyboard cover is included. Fanless Core m5 processor. Full-size USB ports. Adjustable kickstand.", tablet, lenovo);
         factory.getInstance().newProduct("Amazon Fire HD 8", 89, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon);
         factory.getInstance().newProduct("OnePlus 3", 439, "USD", "Dash Charge is faster, safer, cooler - and simply better - than any other fast charging technology available today.", mobile, oneplus);
