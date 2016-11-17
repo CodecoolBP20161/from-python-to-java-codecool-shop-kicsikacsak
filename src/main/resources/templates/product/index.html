@@ -32,7 +32,7 @@
 <div class="jumbotron text-center">
     <form action="/" method="get">
     <button type="submit" class="btn-custom">
-        <p>Codecool Shop</p>
+        <h1>Codecool Shop</h1>
     </button>
     </form>
 
@@ -79,8 +79,11 @@
                 </div>
             </div>
 
-        <div class="col-sm-6">
-            <div class="btn-group">
+        <div class="col-sm-8">
+
+                <a href="/" class="btn btn-home btn-lg">
+                <span class="glyphicon glyphicon-home"></span> Home
+                </a>
                 <button class="btn dropdown-toggle" id="filter1" type="button" data-toggle="dropdown">Category
                     <span class="caret"></span></button>
                     <ul class="dropdown-menu dropdown-menu-left">
@@ -88,7 +91,6 @@
                         <li role="presentation" class="divider"></li>
                         <li role="presentation"><a href="/">All</a></li>
                     </ul>
-            </div>
             <div class="btn-group">
                 <button class="btn dropdown-toggle" id="filter2" type="button" data-toggle="dropdown">Supplier
                     <span class="caret"></span></button>
@@ -99,9 +101,9 @@
                     </ul>
             </div>
         </div>
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <div align="right">
-                    <button type="button" class="btn btn-default btn-sm pull-right" data-toggle="modal" data-target="#myModal">
+                    <button type="button" class="btn btn-cart btn-sm pull-right" data-toggle="modal" data-target="#myModal">
                         <p th:text="${cartlength} + '  Shopping Cart'">Shopping Cart</p><span class="glyphicon glyphicon-shopping-cart"></span>
                     </button>
                 </div>
@@ -109,9 +111,10 @@
         </div>
         <div class="row">
             <div class="col-sm-12" id="category-title">
-                <strong th:text="${category.name}">Category Title</strong>
+                <span th:if="${category.name} == 'Tablet'" th:text="${category.name}"></span>
+                <span th:if="${category.name} == 'Case'" th:text="${category.name}"></span>
+                <span th:if="${category.name} == 'Smartphone'" th:text="${category.name}"></span>
             </div>
-
         </div>
 
     <div id="products" class="row list-group">
