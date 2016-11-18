@@ -60,3 +60,72 @@
 {
     margin: 0 0 11px;
 }
+
+#filter1, #filter2, .btn-home, .btn-cart
+{
+    background: linear-gradient( #e6e6e6, #cccccc);
+    border-color: whitesmoke;
+    color: black;
+}
+
+.btn-home
+{
+    display: inline;
+    padding: 7px 11px;
+    font-weight: 400;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.btn-cart
+{
+    float: right;
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 400;
+    border-radius: 4px;
+}
+
+.conainer-custom
+{
+    margin-bottom: 10px
+}
+
+#category-title
+{
+    text-align: center;
+    text-transform: uppercase;
+    font-size: large;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-family: "Shree Devanagari 714", "Arial", serif;
+    letter-spacing: 2px;
+}
+
+.btn-custom
+{
+    border: black;
+    background-color: white;
+    padding: 50px;
+}
+
+.jumbotron
+{
+    background-size: 1300px 360px;
+    background-color: white;
+
+}
+
+.btn-custom > h1
+{
+    font-size: 50px;
+    font-family: "Shree Devanagari 714", "Arial", serif;
+    text-transform: uppercase;
+    color: black;
+    font-weight: 400;
+    font-stretch: semi-expanded;
+    letter-spacing: 3px;
+
+}
+
