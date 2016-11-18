@@ -64,6 +64,7 @@ public class ProductController {
         params.put("category", getProductCategoryDao().find(1));
         params.put("products", getProductDao().getAll());
         eventHandler(getSupplierDao(), getProductCategoryDao(), params, req);
+        params.put("allproducts", "All Products");
 
         return new ModelAndView(params, "product/index");
     }

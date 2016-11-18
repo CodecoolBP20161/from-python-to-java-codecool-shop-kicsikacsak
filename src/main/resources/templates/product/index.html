@@ -111,10 +111,14 @@
         </div>
         <div class="row">
             <div class="col-sm-12" id="category-title">
-                <span th:if="${category.name} == 'Tablet'" th:text="${category.name}"></span>
-                <span th:if="${category.name} == 'Case'" th:text="${category.name}"></span>
-                <span th:if="${category.name} == 'Smartphone'" th:text="${category.name}"></span>
-            </div>
+                <!--<span th:if="${category.name} == 'Tablet'" th:text="${category.name}"></span>-->
+                <!--<span th:if="${category.name} == 'Case'" th:text="${category.name}"></span>-->
+                <!--<span th:if="${category.name} == 'Smartphone'" th:text="${category.name}"></span>-->
+                <strong th:text="${allproducts != null} ? ${allproducts} : ${category.name}">someValue</strong>
+
+                <!--<strong th:text="${category.name}">Category Title</strong>-->
+
+        </div>
         </div>
 
     <div id="products" class="row list-group">
