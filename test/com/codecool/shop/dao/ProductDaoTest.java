@@ -9,22 +9,13 @@ import static org.junit.Assert.*;
 /**
  * Created by svindler on 28.11.2016.
  */
+
 public class ProductDaoTest {
     @Before
     public void setUp() throws Exception {
 
     }
-
-    @After
-    public void tearDown() throws Exception {
-
-    }
-
-    @Test
-    public void add() throws Exception {
-
-    }
-
+    
     @Test
     public void find() throws Exception {
 
@@ -47,6 +38,11 @@ public class ProductDaoTest {
 
     @Test
     public void getBy1() throws Exception {
+
+    }
+    
+    @After
+    public void tearDown() throws Exception {
 
     }
 

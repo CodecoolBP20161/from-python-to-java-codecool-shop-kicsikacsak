@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 /**
  * Created by svindler on 28.11.2016.
  */
+
 public class SupplierDaoTest {
     @org.junit.Before
     public void setUp() throws Exception {
