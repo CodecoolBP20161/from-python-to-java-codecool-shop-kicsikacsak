@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS supplier;
 
 CREATE TABLE category
 (
-  category_id VARCHAR(36) PRIMARY KEY,
+  category_id INT PRIMARY KEY,
   name varchar(40),
   department VARCHAR(40),
   description VARCHAR(255)
@@ -14,7 +14,7 @@ CREATE TABLE category
 
 CREATE TABLE supplier
 (
-  supplier_id VARCHAR(36) PRIMARY KEY,
+  supplier_id INT PRIMARY KEY,
   name VARCHAR(40)
 
 );
@@ -23,9 +23,9 @@ CREATE TABLE product
 (
   id varchar(36) PRIMARY KEY,
   name varchar(40),
-  default_price FLOAT(10),
-  currency VARCHAR(5),
+  default_price VARCHAR(10),
+  currency MONEY,
   description VARCHAR(255),
-  category varchar(40) REFERENCES category(category_id),
-  supplier varchar(40) REFERENCES supplier(supplier_id)
+  category INT REFERENCES category(category_id),
+  supplier INT REFERENCES supplier(supplier_id)
 );
