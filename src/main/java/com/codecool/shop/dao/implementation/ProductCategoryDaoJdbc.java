@@ -82,7 +82,7 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
              ResultSet resultSet = statement.executeQuery(query);
         ){
             while (resultSet.next()){
-                ProductCategory productCategory = new ProductCategory(resultSet.getString("id"),
+                ProductCategory productCategory = new ProductCategory(
                         resultSet.getString("name"),
                         resultSet.getString("department"),
                         resultSet.getString("description")
