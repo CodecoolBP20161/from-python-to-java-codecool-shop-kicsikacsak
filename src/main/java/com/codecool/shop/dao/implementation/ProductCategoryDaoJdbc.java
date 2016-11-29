@@ -2,9 +2,12 @@ package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.model.ProductCategory;
+import com.codecool.shop.model.Supplier;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by svindler on 28.11.2016.
@@ -61,7 +64,7 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
         String query = "DELETE FROM category WHERE id ='" + id + "';";
 
         try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)){
-            
+
             preparedStatement.executeQuery(query);
 
         } catch (SQLException e) {
@@ -70,7 +73,29 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
     };
 
     @Override
-    public List<ProductCategory> getAll(){}
+    public List<ProductCategory> getAll(){
+        String query = "SELECT * FROM category;";
+        List<ProductCategory> categories = new ArrayList<>();
+
+        try (Connection connection = getConnection();
+             Statement statement =connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query);
+        ){
+            while (resultSet.next()){
+                ProductCategory productCategory = new ProductCategory(resultSet.getString("id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("department"),
+                        resultSet.getString("description")
+                );
+                categories.add(productCategory);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return categories;
+    }
 
     private Connection getConnection() throws SQLException {
         return DriverManager.getConnection(
