@@ -64,7 +64,6 @@ public class ProductCategoryDaoTest {
     @After
     public void tearDown() throws Exception {
 
-        mobile = null;
         productCategoryDataStore.remove(1);
 
     }

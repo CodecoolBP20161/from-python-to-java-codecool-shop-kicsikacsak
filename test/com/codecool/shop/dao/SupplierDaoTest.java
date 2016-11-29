@@ -66,7 +66,6 @@ public class SupplierDaoTest {
     @After
     public void tearDown() throws Exception {
 
-        nokia = null;
         productSupplierDao.remove(1);
 
     }

@@ -98,10 +98,7 @@ public class ProductDaoTest {
     @After
     public void tearDown() throws Exception {
 
-//        nokia705 = null;
-//        nokia = null;
         productDao.remove(1);
-//        mobile = null;
 
     }
 
