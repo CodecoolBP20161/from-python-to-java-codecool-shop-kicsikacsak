@@ -29,6 +29,7 @@ public class ProductCategoryDaoTest {
 
     }
 
+    //try to find a category by wrong id
     @Test(expected = NullPointerException.class)
     public void invalidFindId() throws Exception {
 
@@ -36,8 +37,10 @@ public class ProductCategoryDaoTest {
     }
 
 
+    //try to remove an element by invalid id, the size remains but i think i have to throw an error ??
     @Test
     public void invalidRemoveId() throws Exception {
+
         productCategoryDataStore.remove(3);
         assertEquals(1, productCategoryDataStore.getAll().size());
 

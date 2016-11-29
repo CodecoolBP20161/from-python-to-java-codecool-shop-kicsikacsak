@@ -43,6 +43,7 @@ public class ProductDaoTest {
 
     }
 
+    //try to add null value to our list
     @Test(expected=NullPointerException.class)
     public void testNullException() throws Exception {
 
@@ -60,6 +61,7 @@ public class ProductDaoTest {
 
     }
 
+    //try to add to null category i don't know where to catch this exception
     @Test
     public void getByWrongCategory() throws Exception {
 
