@@ -7,6 +7,7 @@ import com.codecool.shop.model.Supplier;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.List;
 
 
@@ -16,15 +17,29 @@ public class ProductDaoJdbc implements ProductDao {
     private static final String DB_USER = "svindler";
     private static final String DB_PASSWORD = "codecool";
 
+    private static ProductDaoJdbc instance = null;
+
+    private ProductDaoJdbc() {
+    }
+
+    public static ProductDaoJdbc getInstance(){
+        if (instance == null){
+            instance = new ProductDaoJdbc();
+        }
+        return instance;
+    }
+
     @Override
     public void add(Product product) {
+
+
 
         String query = "INSERT INTO product (name, default_price, currency, description, category, supplier) VALUES (?, ?, ?, ?, ?, ?);";
         try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)){
 
             preparedStatement.setString(1, product.getName());
             preparedStatement.setFloat(2, product.getDefaultPrice());
-            preparedStatement.setObject(3, product.getDefaultCurrency());
+            preparedStatement.setObject(3, "USD");
             preparedStatement.setString(4, product.getDescription());
             preparedStatement.setInt(5, product.getProductCategory().getId());
             preparedStatement.setInt(6, product.getSupplier().getId());

@@ -1,31 +1,30 @@
 DROP TABLE IF EXISTS product;
-DROP TABLE IF EXISTS category;
+DROP TABLE IF EXISTS categories;
 DROP TABLE IF EXISTS supplier;
 
 
-CREATE TABLE category
+CREATE TABLE categories
 (
-  category_id INT PRIMARY KEY,
-  name varchar(40),
-  department VARCHAR(40),
+  category_id INT PRIMARY KEY NOT NULL,
+  name varchar(255),
+  department VARCHAR(255),
   description VARCHAR(255)
 
 );
 
 CREATE TABLE supplier
 (
-  supplier_id INT PRIMARY KEY,
-  name VARCHAR(40)
+  supplier_id INT PRIMARY KEY NOT NULL,
+  name VARCHAR(255)
 
 );
 
 CREATE TABLE product
 (
-  id varchar(36) PRIMARY KEY,
   name varchar(40),
-  default_price VARCHAR(10),
-  currency MONEY,
+  default_price VARCHAR(255),
+  currency VARCHAR(255),
   description VARCHAR(255),
-  category INT REFERENCES category(category_id),
+  category INT REFERENCES categories(category_id),
   supplier INT REFERENCES supplier(supplier_id)
 );

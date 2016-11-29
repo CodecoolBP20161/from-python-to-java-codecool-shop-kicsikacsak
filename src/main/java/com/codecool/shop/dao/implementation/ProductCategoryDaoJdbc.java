@@ -13,7 +13,7 @@ import java.util.Locale;
  * Created by svindler on 28.11.2016.
  */
 public class ProductCategoryDaoJdbc implements ProductCategoryDao {
-    private static final String DATABASE = "jdbc:postgresql://localhost:5432/postgres";
+    private static final String DATABASE = "jdbc:postgresql://localhost:5432/codecoolshop";
     private static final String DB_USER = "svindler";
     private static final String DB_PASSWORD = "codecool";
 
@@ -31,12 +31,13 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
 
     @Override
     public void add(ProductCategory category){
-        String query = "INSERT INTO category (name, department, description) VALUES (?, ?, ?);";
+        String query = "INSERT INTO categories (category_id, name, department, description) VALUES (?, ?, ?, ?);";
 
         try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)){
-            preparedStatement.setString(1, category.getName());
-            preparedStatement.setString(2, category.getDepartment());
-            preparedStatement.setObject(3, category.getDescription());
+            preparedStatement.setInt(1, category.getId());
+            preparedStatement.setString(2, category.getName());
+            preparedStatement.setString(3, category.getDepartment());
+            preparedStatement.setObject(4, category.getDescription());
 
             ResultSet resultSet = preparedStatement.executeQuery();
             System.out.println(preparedStatement);
