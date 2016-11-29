@@ -12,8 +12,8 @@ import java.sql.*;
 public class SupplierDaoJdbc implements SupplierDao {
 
     private static final String DATABASE = "jdbc:postgresql://localhost:5432/codecoolshop";
-    private static final String DB_USER = "postgres";
-    private static final String DB_PASSWORD = "postgres";
+    private static final String DB_USER = "svindler";
+    private static final String DB_PASSWORD = "codecool";
 
     private static SupplierDaoJdbc instance = null;
 

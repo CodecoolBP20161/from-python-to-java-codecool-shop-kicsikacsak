@@ -14,8 +14,8 @@ import java.util.Locale;
  */
 public class ProductCategoryDaoJdbc implements ProductCategoryDao {
     private static final String DATABASE = "jdbc:postgresql://localhost:5432/postgres";
-    private static final String DB_USER = "postgres";
-    private static final String DB_PASSWORD = "postgres";
+    private static final String DB_USER = "svindler";
+    private static final String DB_PASSWORD = "codecool";
 
     private static ProductCategoryDaoJdbc instance = null;
 
@@ -34,12 +34,12 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
         String query = "INSERT INTO category (name, department, description) VALUES (?, ?, ?);";
 
         try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)){
-
             preparedStatement.setString(1, category.getName());
             preparedStatement.setString(2, category.getDepartment());
             preparedStatement.setObject(3, category.getDescription());
 
             ResultSet resultSet = preparedStatement.executeQuery();
+            System.out.println(preparedStatement);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -53,7 +53,7 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
 
         try (Connection connection = getConnection();
              Statement statement =connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query);)
+             ResultSet resultSet = statement.executeQuery(query))
         {
             if(resultSet.next()){
                 ProductCategory result = new ProductCategory(resultSet.getString("name"),
