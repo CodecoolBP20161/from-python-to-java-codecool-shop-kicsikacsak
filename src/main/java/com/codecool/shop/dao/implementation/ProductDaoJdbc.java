@@ -42,16 +42,20 @@ public class ProductDaoJdbc implements ProductDao {
         String query = "SELECT * FROM product WHERE id ='" + id + "';";
 
         try (Connection connection = getConnection();
-             Statement statement =connection.createStatement();
+             Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query);
         ){
             if (resultSet.next()){
+                ProductCategoryDaoJdbc productCategoryDaoJdbc = ProductCategoryDaoJdbc.getInstance();
+                ProductCategory pcategory = productCategoryDaoJdbc.find(resultSet.getInt("category_id"));
+                SupplierDaoJdbc supplierDaoJdbc = SupplierDaoJdbc.getInstance();
+                Supplier supplier = supplierDaoJdbc.find(resultSet.getInt("supplier_id"));
                 Product product = new Product(resultSet.getString("name"),
                         resultSet.getFloat("default_price"),
                         resultSet.getString("currency"),
                         resultSet.getString("description"),
-                        resultSet.getInt("category_id"),
-                        resultSet.getInt("supplier_id"));
+                        pcategory,
+                        supplier);
 
                 return product;
             } else {
@@ -119,7 +123,7 @@ public class ProductDaoJdbc implements ProductDao {
                         resultSet.getString("currency"),
                         resultSet.getString("description"),
                         resultSet.getInt("category_id"),
-                        resultSet.getInt("supplier_id"));
+                        resultSet.getInt();
                 productsBySupplier.add(product);
             }
         } catch (SQLException e) {

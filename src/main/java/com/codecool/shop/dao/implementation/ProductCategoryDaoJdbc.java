@@ -4,6 +4,7 @@ import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.model.ProductCategory;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,6 +14,18 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
     private static final String DATABASE = "jdbc:postgresql://localhost:5432/postgres";
     private static final String DB_USER = "postgres";
     private static final String DB_PASSWORD = "postgres";
+
+    private static ProductCategoryDaoJdbc instance = null;
+
+    private ProductCategoryDaoJdbc() {
+    }
+
+    public static ProductCategoryDaoJdbc getInstance(){
+        if (instance == null){
+            instance = new ProductCategoryDaoJdbc();
+        }
+        return instance;
+    }
 
     @Override
     public void add(ProductCategory category){
@@ -30,7 +43,7 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
             e.printStackTrace();
         }
 
-    };
+    }
 
     @Override
     public ProductCategory find(int id){
@@ -54,7 +67,7 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
         }
         return null;
 
-    };
+    }
 
     @Override
     public void remove(int id){
@@ -70,7 +83,30 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
     };
 
     @Override
-    public List<ProductCategory> getAll(){}
+    public List<ProductCategory> getAll(){
+
+        String query = "SELECT * FROM supplier;";
+
+        List<ProductCategory> pCategoryList = new ArrayList<>();
+
+        try (Connection connection = getConnection();
+             Statement statement =connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query);
+        ){
+            while (resultSet.next()){
+                ProductCategory productCategory = new ProductCategory(resultSet.getString("name"),
+                        resultSet.getString("department"),
+                        resultSet.getString("description"));
+                pCategoryList.add(productCategory);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return pCategoryList;
+
+    }
 
     private Connection getConnection() throws SQLException {
         return DriverManager.getConnection(

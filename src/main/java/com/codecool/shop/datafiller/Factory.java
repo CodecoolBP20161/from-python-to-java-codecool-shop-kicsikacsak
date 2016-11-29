@@ -3,7 +3,7 @@ package com.codecool.shop.datafiller;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
+import com.codecool.shop.dao.implementation.ProductCategoryDaoJdbc;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
 import com.codecool.shop.model.Product;
@@ -32,7 +32,7 @@ public class Factory {
     }
 
     public ProductCategory productCategory(String name, String department, String description) {
-        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoJdbc.getInstance();
         ProductCategory category = new ProductCategory(name, department, description);
         productCategoryDataStore.add(category);
         return category;

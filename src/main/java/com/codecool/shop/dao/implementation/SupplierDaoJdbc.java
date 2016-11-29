@@ -15,6 +15,17 @@ public class SupplierDaoJdbc implements SupplierDao {
     private static final String DB_USER = "postgres";
     private static final String DB_PASSWORD = "postgres";
 
+    private static SupplierDaoJdbc instance = null;
+
+    private SupplierDaoJdbc() {
+    }
+
+    public static SupplierDaoJdbc getInstance(){
+        if (instance == null){
+            instance = new SupplierDaoJdbc();
+        }
+        return instance;
+    }
 
     @Override
     public void add(Supplier supplier) {
