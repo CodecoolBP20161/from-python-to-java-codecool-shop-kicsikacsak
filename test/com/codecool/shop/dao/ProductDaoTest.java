@@ -47,15 +47,13 @@ public class ProductDaoTest {
     @Test(expected=NullPointerException.class)
     public void testNullException() throws Exception {
 
-        productDao.remove(1);
         productDao.add(null);
-        assertEquals(null, productDao.getAll());
 
     }
 
 
     @Test
-    public void getBy1() throws Exception {
+    public void getByCategory() throws Exception {
 
         assertEquals(1, productDao.getBy(mobile).size());
 
@@ -89,7 +87,7 @@ public class ProductDaoTest {
 
 
     @Test
-    public void getBy() throws Exception {
+    public void getBySupplier() throws Exception {
 
         assertEquals(1, productDao.getBy(nokia).size());
 
