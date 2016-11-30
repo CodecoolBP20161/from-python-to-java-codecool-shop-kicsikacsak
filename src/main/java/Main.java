@@ -1,4 +1,5 @@
 import com.codecool.shop.controller.ProductController;
+import com.codecool.shop.dao.implementation.ProductDaoJdbc;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.datafiller.ExampleData;
 import com.codecool.shop.model.Cart;
@@ -30,7 +31,7 @@ public class Main {
 
         post("/cart", (Request req, Response res) -> {
 
-            Product product = ProductDaoMem.getInstance().find(Integer.parseInt(req.queryParams("prodid")));
+            Product product = ProductDaoJdbc.getInstance().find(Integer.parseInt(req.queryParams("prodid")));
             Cart cart = null;
 
              if (req.session().attribute("cart") == null) {

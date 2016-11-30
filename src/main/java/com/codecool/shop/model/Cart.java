@@ -32,12 +32,13 @@ public class Cart {
     //Adding a product to a hashmap, if the products is already a key, just ++ the quantity
     public void add(Product product) {
 
+
         if (products.containsKey(product)) {
             products.put(product, products.get(product) + 1);
             try {
                 totalSum += product.getDefaultPrice();
             } catch (NullPointerException e){
-                System.out.println("some error");
+                System.out.println("You try ");
             }
 
 
