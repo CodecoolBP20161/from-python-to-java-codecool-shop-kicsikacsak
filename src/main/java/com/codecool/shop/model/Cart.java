@@ -16,7 +16,6 @@ public class Cart {
 
     private HashMap<Product, Integer> products = new HashMap<>();
     public Float totalSum = 0.0f;
-    private String anyad = "anyad";
 
     public Cart() {
     }

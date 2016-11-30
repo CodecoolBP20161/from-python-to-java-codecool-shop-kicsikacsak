@@ -13,6 +13,7 @@ import static org.junit.Assert.*;
 /**
  * Created by svindler on 28.11.2016.
  */
+
 public class ProductDaoTest {
 
     private Supplier nokia;
@@ -51,7 +52,6 @@ public class ProductDaoTest {
 
     }
 
-
     @Test
     public void getByCategory() throws Exception {
 
@@ -67,7 +67,6 @@ public class ProductDaoTest {
         assertEquals(0, productDao.getBy(nullCategory).size());
 
     }
-
 
     @Test
     public void remove() throws Exception {
@@ -99,5 +98,6 @@ public class ProductDaoTest {
         productDao.remove(1);
 
     }
+
 
 }
