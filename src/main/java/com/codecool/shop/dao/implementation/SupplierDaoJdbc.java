@@ -6,6 +6,8 @@ import com.codecool.shop.model.Supplier;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.*;
+import java.util.Random;
+
 /**
  * Created by svindler on 28.11.2016.
  */
@@ -29,13 +31,14 @@ public class SupplierDaoJdbc implements SupplierDao {
 
     @Override
     public void add(Supplier supplier) {
+
         String query = "INSERT INTO supplier (supplier_id, name) VALUES (?, ?);";
 
         try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)){
             preparedStatement.setInt(1, supplier.getId());
             preparedStatement.setString(2, supplier.getName());
 
-            ResultSet resultSet = preparedStatement.executeQuery();
+            preparedStatement.execute();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -46,15 +49,16 @@ public class SupplierDaoJdbc implements SupplierDao {
     @Override
     public Supplier find(int id) {
 
-        String query = "SELECT * FROM supplier WHERE id ='" + id + "';";
+        String query = "SELECT * FROM supplier WHERE supplier_id ='" + id + "';";
 
         try (Connection connection = getConnection();
              Statement statement =connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query);
+             ResultSet resultSet = statement.executeQuery(query)
         ){
             if (resultSet.next()){
-                Supplier supplier = new Supplier(resultSet.getString("id"),
-                resultSet.getString("name"));
+                Supplier supplier = new Supplier(
+                        resultSet.getInt("supplier_id"),
+                        resultSet.getString("name"));
 
                 return supplier;
             } else {
@@ -89,7 +93,8 @@ public class SupplierDaoJdbc implements SupplierDao {
              ResultSet resultSet = statement.executeQuery(query);
         ){
             while (resultSet.next()){
-                Supplier supplier = new Supplier(resultSet.getString("id"),
+                Supplier supplier = new Supplier(
+                        resultSet.getInt("supplier_id"),
                         resultSet.getString("name"));
                 supplierList.add(supplier);
             }

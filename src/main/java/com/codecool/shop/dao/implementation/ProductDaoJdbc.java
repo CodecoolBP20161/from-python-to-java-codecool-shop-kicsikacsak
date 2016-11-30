@@ -44,7 +44,7 @@ public class ProductDaoJdbc implements ProductDao {
             preparedStatement.setInt(5, product.getProductCategory().getId());
             preparedStatement.setInt(6, product.getSupplier().getId());
 
-            ResultSet resultSet = preparedStatement.executeQuery();
+            preparedStatement.execute();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -110,11 +110,13 @@ public class ProductDaoJdbc implements ProductDao {
             while (resultSet.next()){
 
                 ProductCategoryDaoJdbc productCategoryDaoJdbc = ProductCategoryDaoJdbc.getInstance();
-                ProductCategory pcategory = productCategoryDaoJdbc.find(resultSet.getInt("category_id"));
+                ProductCategory pcategory = productCategoryDaoJdbc.find(resultSet.getInt("category"));
                 SupplierDaoJdbc supplierDaoJdbc = SupplierDaoJdbc.getInstance();
-                Supplier supplier = supplierDaoJdbc.find(resultSet.getInt("supplier_id"));
+                Supplier supplier = supplierDaoJdbc.find(resultSet.getInt("supplier"));
 
-                Product product = new Product(resultSet.getString("name"),
+                Product product = new Product(
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
                         resultSet.getFloat("default_price"),
                         resultSet.getString("currency"),
                         resultSet.getString("description"),
@@ -134,20 +136,22 @@ public class ProductDaoJdbc implements ProductDao {
     @Override
     public List<Product> getBy(Supplier supplier) {
 
-        String query = "SELECT * FROM product WHERE id = '" + supplier.getId() +"';";
-
+        String query = "SELECT * FROM product WHERE supplier = '" + supplier.getId() +"';";
         List<Product> productsBySupplier = new ArrayList<>();
         try (Connection connection = getConnection();
              Statement statement =connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query);
         ) {
             while (resultSet.next()) {
+                System.out.println(resultSet.getString("name"));
 
                 ProductCategoryDaoJdbc productCategoryDaoJdbc = ProductCategoryDaoJdbc.getInstance();
-                ProductCategory pcategory = productCategoryDaoJdbc.find(resultSet.getInt("category_id"));
+                ProductCategory pcategory = productCategoryDaoJdbc.find(resultSet.getInt("category"));
                 SupplierDaoJdbc supplierDaoJdbc = SupplierDaoJdbc.getInstance();
 
-                Product product = new Product(resultSet.getString("name"),
+                Product product = new Product(
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
                         resultSet.getFloat("default_price"),
                         resultSet.getString("currency"),
                         resultSet.getString("description"),
@@ -164,8 +168,8 @@ public class ProductDaoJdbc implements ProductDao {
 
     @Override
     public List<Product> getBy(ProductCategory productCategory) {
-
-        String query = "SELECT * FROM proruct WHERE id = '" + productCategory.getId() +"';";
+        System.out.println(productCategory);
+        String query = "SELECT * FROM product WHERE category = '" + productCategory.getId() +"';";
 
         List<Product> productsByCategory = new ArrayList<>();
         try (Connection connection = getConnection();
@@ -176,9 +180,11 @@ public class ProductDaoJdbc implements ProductDao {
 
                 ProductCategoryDaoJdbc productCategoryDaoJdbc = ProductCategoryDaoJdbc.getInstance();
                 SupplierDaoJdbc supplierDaoJdbc = SupplierDaoJdbc.getInstance();
-                Supplier supplier = supplierDaoJdbc.find(resultSet.getInt("supplier_id"));
+                Supplier supplier = supplierDaoJdbc.find(resultSet.getInt("supplier"));
 
-                Product product = new Product(resultSet.getString("name"),
+                Product product = new Product(
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
                         resultSet.getFloat("default_price"),
                         resultSet.getString("currency"),
                         resultSet.getString("description"),

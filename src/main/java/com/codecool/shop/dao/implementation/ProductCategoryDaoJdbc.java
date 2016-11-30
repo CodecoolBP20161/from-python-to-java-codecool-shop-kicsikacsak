@@ -8,6 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 /**
  * Created by svindler on 28.11.2016.
@@ -31,6 +32,8 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
 
     @Override
     public void add(ProductCategory category){
+
+
         String query = "INSERT INTO categories (category_id, name, department, description) VALUES (?, ?, ?, ?);";
 
         try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)){
@@ -39,7 +42,7 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
             preparedStatement.setString(3, category.getDepartment());
             preparedStatement.setObject(4, category.getDescription());
 
-            ResultSet resultSet = preparedStatement.executeQuery();
+            preparedStatement.execute();
             System.out.println(preparedStatement);
 
         } catch (SQLException e) {
@@ -50,14 +53,16 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
 
     @Override
     public ProductCategory find(int id){
-        String query = "SELECT * FROM category WHERE id ='" + id + "';";
+        String query = "SELECT * FROM categories WHERE category_id ='" + id + "';";
 
         try (Connection connection = getConnection();
              Statement statement =connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query))
         {
             if(resultSet.next()){
-                ProductCategory result = new ProductCategory(resultSet.getString("name"),
+                ProductCategory result = new ProductCategory(
+                        resultSet.getInt("category_id"),
+                        resultSet.getString("name"),
                         resultSet.getString("department"),
                         resultSet.getString("description"));
                 return result;
@@ -74,7 +79,7 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
 
     @Override
     public void remove(int id){
-        String query = "DELETE FROM category WHERE id ='" + id + "';";
+        String query = "DELETE FROM categories WHERE category_id ='" + id + "';";
 
         try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)){
 
@@ -88,16 +93,17 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
     @Override
     public List<ProductCategory> getAll(){
 
-        String query = "SELECT * FROM category;";
+        String query = "SELECT * FROM categories;";
         List<ProductCategory> categories = new ArrayList<>();
 
         try (Connection connection = getConnection();
              Statement statement =connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query);
+             ResultSet resultSet = statement.executeQuery(query)
         ){
             while (resultSet.next()){
 
                 ProductCategory productCategory = new ProductCategory(
+                        resultSet.getInt("category_id"),
                         resultSet.getString("name"),
                         resultSet.getString("department"),
                         resultSet.getString("description")
