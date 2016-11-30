@@ -19,7 +19,7 @@ public class ProductController {
         params.put("allcategories", productCategoryDataStore.getAll());
         params.put("allsuppliers", supplierDataStore.getAll());
 
-        System.out.println(supplierDataStore.getAll());
+//        System.out.println(supplierDataStore.getAll());
 
         Integer cartlength = 0;
         HashMap cartContent = null;
@@ -33,6 +33,7 @@ public class ProductController {
         } catch (NullPointerException e) {
 
         }
+//        System.out.println(cartContent);
         params.put("cartlength", cartlength);
         params.put("cart", cartContent);
         params.put("totalsum", totalSum);
