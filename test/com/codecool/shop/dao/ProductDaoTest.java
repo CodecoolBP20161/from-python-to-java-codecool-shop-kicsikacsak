@@ -48,12 +48,18 @@ public class ProductDaoTest {
     @Test(expected=NullPointerException.class)
     public void testNullException() throws Exception {
 
-        productDao.remove(1);
         productDao.add(null);
-        assertEquals(null, productDao.getAll());
 
     }
 
+    @Test
+    public void getByCategory() throws Exception {
+
+        assertEquals(1, productDao.getBy(mobile).size());
+
+    }
+
+    //try to add to null category i don't know where to catch this exception
     @Test
     public void getByWrongCategory() throws Exception {
 
