@@ -19,3 +19,5 @@ hs_err_pid*
 
 # Project Files
 target/
+
+src/main/resources/connection.properties
