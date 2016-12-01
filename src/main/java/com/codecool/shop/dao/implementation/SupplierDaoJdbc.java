@@ -76,7 +76,7 @@ public class SupplierDaoJdbc implements SupplierDao {
     @Override
     public void remove(int id) {
 
-        String query = "DELETE FROM suppliers WHERE id = '" + id +"';";
+        String query = "DELETE FROM supplier WHERE supplier_id = '" + id +"';";
         executeQuery(query);
 
     }

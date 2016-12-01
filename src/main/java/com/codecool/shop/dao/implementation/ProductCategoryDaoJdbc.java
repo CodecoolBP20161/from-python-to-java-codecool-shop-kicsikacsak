@@ -79,16 +79,10 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
 
     @Override
     public void remove(int id){
-        String query = "DELETE FROM categories WHERE category_id ='" + id + "';";
 
-        try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)){
-
-            preparedStatement.executeQuery(query);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    };
+        String query = "DELETE FROM categories WHERE category_id = '" + id +"';";
+        executeQuery(query);
+    }
 
     @Override
     public List<ProductCategory> getAll(){
