@@ -42,7 +42,7 @@ public class ProductController {
 
         Map params = new HashMap<>();
 
-        DataStoreSwitcher switcher = new DataStoreSwitcher();
+        DataStoreSwitcher switcher = DataStoreSwitcher.getInstance();
 
         params.put("category", switcher.getProductCategoryDao().find(1));
         params.put("products", switcher.getProductDao().getAll());
@@ -56,7 +56,7 @@ public class ProductController {
 
         Map params = new HashMap<>();
 
-        DataStoreSwitcher switcher = new DataStoreSwitcher();
+        DataStoreSwitcher switcher = DataStoreSwitcher.getInstance();
 
         //filter by the request id.
         params.put("category", switcher.getProductCategoryDao().find(Integer.parseInt(request.params(":id"))));
@@ -72,7 +72,7 @@ public class ProductController {
 
         Map params = new HashMap<>();
 
-        DataStoreSwitcher switcher = new DataStoreSwitcher();
+        DataStoreSwitcher switcher =  DataStoreSwitcher.getInstance();
 
         //filter by the request id.
         params.put("category", switcher.getSupplierDao().find(Integer.parseInt(request.params(":id"))));

@@ -10,6 +10,9 @@ import com.codecool.shop.dao.implementation.*;
  */
 public class DataStoreSwitcher {
 
+    private DataStoreSwitcher() {
+    }
+
     private static DataStoreSwitcher instance = null;
 
     public static synchronized DataStoreSwitcher getInstance() {
@@ -24,7 +27,7 @@ public class DataStoreSwitcher {
         MEMORY
     }
 
-    private static DataStore dataStoreType = DataStore.MEMORY;
+    public static DataStore dataStoreType = DataStore.MEMORY;
 
     public static ProductDao getProductDao() {
         ProductDao product = null;

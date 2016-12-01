@@ -17,7 +17,7 @@ public class Factory {
 
     private static Factory instance = null;
 
-    private static DataStoreSwitcher switcher = new DataStoreSwitcher();
+    private static DataStoreSwitcher switcher = DataStoreSwitcher.getInstance();
 
     public static synchronized Factory getInstance() {
         if (instance == null) {
