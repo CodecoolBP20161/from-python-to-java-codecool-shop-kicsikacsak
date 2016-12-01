@@ -1,7 +1,9 @@
 package com.codecool.shop.dao;
 
+import com.codecool.shop.dao.implementation.ProductCategoryDaoJdbc;
 import com.codecool.shop.dao.implementation.ProductDaoJdbc;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
+import com.codecool.shop.dao.implementation.SupplierDaoJdbc;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
@@ -16,13 +18,18 @@ import static org.junit.Assert.*;
  */
 public class ProductDaoJdbcTest {
     private Supplier nokia;
+    private SupplierDao supplierDao;
+    private ProductCategoryDao categoryDao;
     private ProductCategory mobile;
     private Product nokia705;
     private ProductDaoJdbc productDao;
 
+    private static Integer n = 0;
+
+
     @Before
     public void setUp() throws Exception {
-
+        n ++;
         nokia = new Supplier("Nokia", "Electronic stuff");
         mobile = new ProductCategory("Nokia", "Electronic stuff", "Boring stuff for testing");
         nokia705 = new Product("Amazon Fire", 49, "USD",
@@ -30,9 +37,12 @@ public class ProductDaoJdbcTest {
                 mobile, nokia);
 
         productDao = ProductDaoJdbc.getInstance();
+        categoryDao = ProductCategoryDaoJdbc.getInstance();
+        supplierDao = SupplierDaoJdbc.getInstance();
+
+        categoryDao.add(mobile);
+        supplierDao.add(nokia);
         productDao.add(nokia705);
-
-
 
     }
 
@@ -59,18 +69,18 @@ public class ProductDaoJdbcTest {
     }
 
     //try to add to null category i don't know where to catch this exception
-    @Test
+    @Test(expected = NullPointerException.class)
     public void getByWrongCategory() throws Exception {
 
         ProductCategory nullCategory = null;
-        assertEquals(0, productDao.getBy(nullCategory).size());
+        assertNull(productDao.getBy(nullCategory).size());
 
     }
 
     @Test
     public void remove() throws Exception {
 
-        productDao.remove(1);
+        productDao.remove(n);
         assertEquals(0, productDao.getAll().size());
 
     }
@@ -79,7 +89,7 @@ public class ProductDaoJdbcTest {
     @Test
     public void find() throws Exception {
 
-        assertEquals(nokia705.getName(), productDao.find(1).getName());
+        assertEquals(nokia705.getName(), productDao.find(n).getName());
 
     }
 
@@ -94,7 +104,9 @@ public class ProductDaoJdbcTest {
     @After
     public void tearDown() throws Exception {
 
-        productDao.remove(1);
+        productDao.remove(n);
+        supplierDao.remove(n);
+        categoryDao.remove(n);
 
     }
 
