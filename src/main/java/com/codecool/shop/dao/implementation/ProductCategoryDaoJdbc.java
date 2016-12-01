@@ -1,24 +1,21 @@
 package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.ProductCategoryDao;
+import com.codecool.shop.dbconnection.Connector;
 import com.codecool.shop.model.ProductCategory;
-import com.codecool.shop.model.Supplier;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-import java.util.Random;
 
 /**
  * Created by svindler on 28.11.2016.
  */
 public class ProductCategoryDaoJdbc implements ProductCategoryDao {
-    private static final String DATABASE = "jdbc:postgresql://localhost:5432/codecoolshop";
-    private static final String DB_USER = "svindler";
-    private static final String DB_PASSWORD = "codecool";
 
     private static ProductCategoryDaoJdbc instance = null;
+
+    private static Connector connector = Connector.getInstance();
 
     private ProductCategoryDaoJdbc() {
     }
@@ -36,7 +33,7 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
 
         String query = "INSERT INTO categories (category_id, name, department, description) VALUES (?, ?, ?, ?);";
 
-        try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)){
+        try (Connection connection = connector.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)){
             preparedStatement.setInt(1, category.getId());
             preparedStatement.setString(2, category.getName());
             preparedStatement.setString(3, category.getDepartment());
@@ -55,7 +52,7 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
     public ProductCategory find(int id){
         String query = "SELECT * FROM categories WHERE category_id ='" + id + "';";
 
-        try (Connection connection = getConnection();
+        try (Connection connection = connector.getConnection();
              Statement statement =connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query))
         {
@@ -81,7 +78,7 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
     public void remove(int id){
         String query = "DELETE FROM categories WHERE category_id ='" + id + "';";
 
-        try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)){
+        try (Connection connection = connector.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)){
 
             preparedStatement.executeQuery(query);
 
@@ -96,7 +93,7 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
         String query = "SELECT * FROM categories;";
         List<ProductCategory> categories = new ArrayList<>();
 
-        try (Connection connection = getConnection();
+        try (Connection connection = connector.getConnection();
              Statement statement =connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)
         ){
@@ -118,21 +115,4 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
         return categories;
     }
 
-    private Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(
-                DATABASE,
-                DB_USER,
-                DB_PASSWORD);
-    }
-
-    private void executeQuery(String query) {
-        try (Connection connection = getConnection();
-             Statement statement =connection.createStatement();
-        ){
-            statement.execute(query);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 }
