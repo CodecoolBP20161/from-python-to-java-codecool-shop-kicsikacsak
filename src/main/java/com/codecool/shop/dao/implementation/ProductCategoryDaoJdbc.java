@@ -11,6 +11,7 @@ import java.util.List;
 /**
  * Created by svindler on 28.11.2016.
  */
+
 public class ProductCategoryDaoJdbc implements ProductCategoryDao {
 
     private static ProductCategoryDaoJdbc instance = null;
