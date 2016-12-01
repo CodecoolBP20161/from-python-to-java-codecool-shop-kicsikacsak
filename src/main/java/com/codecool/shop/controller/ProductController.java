@@ -1,9 +1,7 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.dao.ProductCategoryDao;
-import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.Cart;
 import spark.ModelAndView;
 import spark.Request;
@@ -40,31 +38,15 @@ public class ProductController {
 
     }
 
-
-    private static ProductDao getProductDao() {
-
-        return ProductDaoJdbc.getInstance();
-    }
-
-    private static ProductCategoryDao getProductCategoryDao() {
-
-        return ProductCategoryDaoJdbc.getInstance();
-    }
-
-    private  static SupplierDao getSupplierDao() {
-
-        return SupplierDaoJdbc.getInstance();
-    }
-
-
     public static ModelAndView renderProducts(Request req, Response res) {
 
         Map params = new HashMap<>();
 
+        DataStoreSwitcher switcher = DataStoreSwitcher.getInstance();
 
-        params.put("category", getProductCategoryDao().find(1));
-        params.put("products", getProductDao().getAll());
-        eventHandler(getSupplierDao(), getProductCategoryDao(), params, req);
+        params.put("category", switcher.getProductCategoryDao().find(1));
+        params.put("products", switcher.getProductDao().getAll());
+        eventHandler(switcher.getSupplierDao(), switcher.getProductCategoryDao(), params, req);
         params.put("allproducts", "All Products");
 
         return new ModelAndView(params, "product/index");
@@ -74,10 +56,12 @@ public class ProductController {
 
         Map params = new HashMap<>();
 
+        DataStoreSwitcher switcher = DataStoreSwitcher.getInstance();
+
         //filter by the request id.
-        params.put("category", getProductCategoryDao().find(Integer.parseInt(request.params(":id"))));
-        params.put("products", getProductDao().getBy(getProductCategoryDao().find(Integer.parseInt(request.params(":id")))));
-        eventHandler(getSupplierDao(), getProductCategoryDao(), params, request);
+        params.put("category", switcher.getProductCategoryDao().find(Integer.parseInt(request.params(":id"))));
+        params.put("products", switcher.getProductDao().getBy(switcher.getProductCategoryDao().find(Integer.parseInt(request.params(":id")))));
+        eventHandler(switcher.getSupplierDao(), switcher.getProductCategoryDao(), params, request);
 
 
         return new ModelAndView(params, "product/index");
@@ -88,10 +72,12 @@ public class ProductController {
 
         Map params = new HashMap<>();
 
+        DataStoreSwitcher switcher =  DataStoreSwitcher.getInstance();
+
         //filter by the request id.
-        params.put("category", getSupplierDao().find(Integer.parseInt(request.params(":id"))));
-        params.put("products", getProductDao().getBy(getSupplierDao().find(Integer.parseInt(request.params(":id")))));
-        eventHandler(getSupplierDao(), getProductCategoryDao(), params, request);
+        params.put("category", switcher.getSupplierDao().find(Integer.parseInt(request.params(":id"))));
+        params.put("products", switcher.getProductDao().getBy(switcher.getSupplierDao().find(Integer.parseInt(request.params(":id")))));
+        eventHandler(switcher.getSupplierDao(), switcher.getProductCategoryDao(), params, request);
 
         return new ModelAndView(params, "product/index");
 

@@ -1,6 +1,6 @@
+import com.codecool.shop.controller.DataStoreSwitcher;
 import com.codecool.shop.controller.ProductController;
 import com.codecool.shop.dao.implementation.ProductDaoJdbc;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.datafiller.ExampleData;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Product;
@@ -8,13 +8,14 @@ import spark.Request;
 import spark.Response;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
-
 import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
 
 public class Main {
 
     public static void main(String[] args) {
+
+        DataStoreSwitcher.dataStoreType = DataStoreSwitcher.DataStore.DATABASE;
 
         // default server settings
         exception(Exception.class, (e, req, res) -> e.printStackTrace());
