@@ -9,17 +9,19 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-
-public class ProductCategoryDaoTest {
-
+/**
+ * Created by mz on 2016.12.01..
+ */
+public class ProductCategoryDaoJdbcTest {
     private ProductCategory mobile;
     private ProductCategoryDao productCategoryDataStore;
+    private static Integer n = 0;
 
     @Before
     public void setUp() throws Exception {
-
+        n ++;
         mobile = new ProductCategory("Nokia", "Electronic stuff", "Boring stuff for testing");
-        productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+        productCategoryDataStore = ProductCategoryDaoJdbc.getInstance();
         productCategoryDataStore.add(mobile);
 
     }
@@ -27,7 +29,7 @@ public class ProductCategoryDaoTest {
     @Test
     public void find() throws Exception {
 
-        assertEquals(mobile.getId(), productCategoryDataStore.find(1).getId());
+        assertEquals(mobile.getId(), productCategoryDataStore.find(n).getId());
 
     }
 
@@ -52,7 +54,7 @@ public class ProductCategoryDaoTest {
     @Test
     public void remove() throws Exception {
 
-        productCategoryDataStore.remove(1);
+        productCategoryDataStore.remove(n);
         assertEquals(0, productCategoryDataStore.getAll().size());
 
 
@@ -69,7 +71,7 @@ public class ProductCategoryDaoTest {
     @After
     public void tearDown() throws Exception {
 
-        productCategoryDataStore.remove(1);
+        productCategoryDataStore.remove(n);
 
     }
 }
