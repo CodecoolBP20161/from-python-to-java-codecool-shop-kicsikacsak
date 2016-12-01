@@ -10,7 +10,7 @@ IntelliJ can auto-install the dependencies from the pom.xml
 # set up properties file
 
 Set up your properties file with your user data :
--Change de SAMPLE.properties to config.properties
+-Change de SAMPLE.properties to connection.properties
 -Fill the properties with your data like the example
 
 Example :
