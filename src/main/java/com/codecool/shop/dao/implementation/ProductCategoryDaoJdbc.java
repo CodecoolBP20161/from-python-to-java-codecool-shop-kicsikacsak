@@ -43,7 +43,6 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
             preparedStatement.setObject(4, category.getDescription());
 
             preparedStatement.execute();
-            System.out.println(preparedStatement);
 
         } catch (SQLException e) {
             e.printStackTrace();
