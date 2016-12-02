@@ -17,3 +17,6 @@ Example :
 database=jdbc:postgresql://localhost:5432/yourdatabasename
 user=yourusername
 password= yourpassword
+
+#run
+First run init_db.sql, than main(main populate data so you have to clear the db-s before the main)
