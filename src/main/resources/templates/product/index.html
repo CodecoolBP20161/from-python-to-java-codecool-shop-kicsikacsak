@@ -55,6 +55,8 @@
                         <div class="modal-body">
                             <p th:text= "'Your Shopping Cart contains '+ ${cartlength} + ' items'">Shopping Cart Content</p>
                             <ul class="list-group">
+
+
                                 <table class="table" style="width:100%">
                                     <tr>
                                         <th>Name</th>
@@ -63,15 +65,19 @@
                                         <th>Subtotal Price</th>
                                     </tr>
                                     <tr th:each="instance : ${cart}">
-                                        <td th:text="${instance.key.name}">Jill</td>
-                                        <td th:text="${instance.key.price}">Smith</td>
+                                        <td th:text="${instance.key.name}">Name</td>
+                                        <td th:text="${instance.key.price}">Price</td>
                                         <td th:text="${instance.value}">50</td>
-                                        <td th:text="${instance.key.defaultPrice * instance.value} + ' ' + ${instance.key.defaultCurrency}">subtotalprize</td>
+                                        <td th:text="${instance.key.defaultPrice * instance.value} + ' '
+                                        + ${instance.key.defaultCurrency}">subtotalprize</td>
                                     </tr>
                                 </table>
                             </ul>
                             <strong th:text=" 'Your total price: ' + ${totalsum} + ' USD'">asd</strong>
                         </div>
+
+
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
@@ -87,7 +93,12 @@
                 <button class="btn dropdown-toggle" id="filter1" type="button" data-toggle="dropdown">Category
                     <span class="caret"></span></button>
                     <ul class="dropdown-menu dropdown-menu-left">
-                        <li th:each="categ : ${allcategories}"><a href="/filter" th:attr="href='/filter/' + ${categ.id}" th:text="${categ.name}">Tablet</a></li>
+
+
+                        <li th:each="categ : ${allcategories}"><a href="/filter" th:attr="href='/filter/'
+                        + ${categ.id}" th:text="${categ.name}">Tablet</a></li>
+
+
                         <li role="presentation" class="divider"></li>
                         <li role="presentation"><a href="/">All</a></li>
                     </ul>

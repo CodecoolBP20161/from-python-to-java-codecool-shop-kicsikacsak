@@ -3,6 +3,10 @@ package com.codecool.shop.datafiller;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
+import static spark.Spark.exception;
+import static spark.Spark.port;
+import static spark.Spark.staticFileLocation;
+
 
 /**
  * Created by doramedgyasszay on 2016. 11. 16..
@@ -34,7 +38,7 @@ public class ExampleData {
         factory.getInstance().newProduct("Elemnt Python MacBook Case", 150, "USD", "Genuine snake skin fused to a polycarbonate snap on cover. The cover is easily removable and interchangeable.", cases, elemnt);
         factory.getInstance().newProduct("Elemnt Python iPad Skin", 100, "USD", "Genuine snake skin backed by a 3M Pressure Sensitive adhesive.", cases, elemnt);
         factory.getInstance().newProduct("Apple iPhone 7", 749, "USD", "iPhone 7 dramatically improves the most important aspects of the iPhone experience.", mobile, apple);
-        factory.getInstance().newProduct("Lenovo Phab2", 199.9f, "USD", "Experience true immersive multimedia with the stunning 6.4inch HD screen and incredible Dolby Atmos® audio.", mobile, lenovo);
+        factory.getInstance().newProduct("Lenovo Phab2", 199.9f, "USD", "Experience true immersive multimedia with the stunning 6.4inch HD screen and incredible Dolby Atmos® audio.", tablet, lenovo);
 
     }
 

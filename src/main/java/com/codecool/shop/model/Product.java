@@ -1,6 +1,7 @@
 package com.codecool.shop.model;
 
 import java.util.Currency;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Product extends BaseModel {
 
@@ -9,12 +10,26 @@ public class Product extends BaseModel {
     private ProductCategory productCategory;
     private Supplier supplier;
 
+    private static AtomicInteger nextId = new AtomicInteger();
+
+
 
     public Product(String name, float defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier) {
         super(name, description);
         this.setPrice(defaultPrice, currencyString);
         this.setSupplier(supplier);
         this.setProductCategory(productCategory);
+        setId(nextId.incrementAndGet());
+
+    }
+
+    public Product(Integer id, String name, float defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier) {
+        super(name, description);
+        this.setPrice(defaultPrice, currencyString);
+        this.setSupplier(supplier);
+        this.setProductCategory(productCategory);
+        this.id = id;
+
     }
 
     public float getDefaultPrice() {

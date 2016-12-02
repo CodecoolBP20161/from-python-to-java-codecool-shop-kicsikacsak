@@ -1,14 +1,25 @@
 package com.codecool.shop.model;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 public class Supplier extends BaseModel {
     private ArrayList<Product> products;
 
+    private static AtomicInteger nextId = new AtomicInteger();
+
+
     public Supplier(String name, String description) {
         super(name);
         this.products = new ArrayList<>();
+        setId(nextId.incrementAndGet());
+    }
+
+    public Supplier(Integer id, String name) {
+        super(name);
+        this.products = new ArrayList<>();
+        this.id = id;
     }
 
     public void setProducts(ArrayList<Product> products) {
