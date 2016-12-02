@@ -21,57 +21,51 @@ import static org.junit.Assert.*;
 
 @RunWith(Parameterized.class)
 public class ProductCategoryDaoTestParam {
-    public static ProductCategoryDao objMem;
-    public static ProductCategoryDao objDB;
-    public ProductCategory mobile;
 
-    public ProductCategoryDaoTestParam(ProductCategoryDaoMem objMem, ProductCategoryDaoJdbc objDB){
-        this.objMem = objMem;
-        this.objDB = objDB;
+    private ProductCategoryDao productCategoryDao;
+    public ProductCategory mobile;
+    private static Integer n = 0;
+
+    public ProductCategoryDaoTestParam(ProductCategoryDao productCategoryDao){
+        this.productCategoryDao = productCategoryDao;
     }
 
     @Parameterized.Parameters
     public static Collection<Object[]> testData(){
-        ProductCategoryDao[][] data = new ProductCategoryDao[][]{
-                {objMem = ProductCategoryDaoMem.getInstance()},
-                //{objDB = ProductCategoryDaoJdbc.getInstance()}
+        return Arrays.asList(
+                new Object[]{ProductCategoryDaoMem.getInstance()},
+                new Object[]{ProductCategoryDaoJdbc.getInstance()});
         };
-        return Arrays.asList(data);
-    }
+
 
     @Before
     public void setUp() throws Exception {
+        n++;
         mobile = new ProductCategory("Nokia", "Electronic stuff", "Boring stuff for testing");
-        objMem.add(mobile);
-        objDB.add(mobile);
+        productCategoryDao.add(mobile);
 
     }
 
     @After
     public void tearDown() throws Exception {
-
+        productCategoryDao.getAll().clear();
     }
 
 
     @Test
     public void find() throws Exception {
-        System.out.println(objDB);
-        assertEquals(mobile.getId(),objMem.find(1).getId());
-        assertEquals(mobile.getId(), objDB.find(1).getId());
+        assertEquals(mobile.getId(),productCategoryDao.find(1).getId());
     }
 
     @Test
     public void remove() throws Exception {
-        objMem.remove(1);
-        objDB.remove(1);
-        assertEquals(0, objMem.getAll().size());
-        assertEquals(0, objDB.getAll().size());
+        assertEquals(0, productCategoryDao.getAll().size());;
     }
 
     @Test
     public void getAll() throws Exception {
-        assertEquals(1,objMem.getAll().size());
-        assertEquals(1,objDB.getAll().size());
+        assertEquals(1,productCategoryDao.getAll().size());
+
     }
 
 }

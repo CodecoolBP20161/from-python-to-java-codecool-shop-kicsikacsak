@@ -12,7 +12,7 @@ import java.util.List;
  * Created by svindler on 28.11.2016.
  */
 public class SupplierDaoJdbc implements SupplierDao {
-
+    
     private static SupplierDaoJdbc instance = null;
 
     private static Connector connector = Connector.getInstance();
