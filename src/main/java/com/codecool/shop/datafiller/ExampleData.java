@@ -1,8 +1,11 @@
 package com.codecool.shop.datafiller;
 
-import com.codecool.shop.dao.implementation.SupplierDaoJdbc;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
+
+import static spark.Spark.exception;
+import static spark.Spark.port;
+import static spark.Spark.staticFileLocation;
 
 
 /**

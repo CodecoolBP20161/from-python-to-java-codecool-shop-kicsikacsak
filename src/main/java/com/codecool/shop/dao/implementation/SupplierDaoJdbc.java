@@ -1,23 +1,21 @@
 package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.SupplierDao;
+import com.codecool.shop.dbconnection.Connector;
 import com.codecool.shop.model.Supplier;
 
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.*;
-import java.util.Random;
 
 /**
  * Created by svindler on 28.11.2016.
  */
 public class SupplierDaoJdbc implements SupplierDao {
 
-    private static final String DATABASE = "jdbc:postgresql://localhost:5432/codecoolshop";
-    private static final String DB_USER = "svindler";
-    private static final String DB_PASSWORD = "codecool";
-
     private static SupplierDaoJdbc instance = null;
+
+    private static Connector connector = Connector.getInstance();
 
     private SupplierDaoJdbc() {
     }
@@ -34,7 +32,7 @@ public class SupplierDaoJdbc implements SupplierDao {
 
         String query = "INSERT INTO supplier (supplier_id, name) VALUES (?, ?);";
 
-        try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)){
+        try (Connection connection = connector.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)){
             preparedStatement.setInt(1, supplier.getId());
             preparedStatement.setString(2, supplier.getName());
 
@@ -51,7 +49,7 @@ public class SupplierDaoJdbc implements SupplierDao {
 
         String query = "SELECT * FROM supplier WHERE supplier_id ='" + id + "';";
 
-        try (Connection connection = getConnection();
+        try (Connection connection = connector.getConnection();
              Statement statement =connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)
         ){
@@ -77,7 +75,8 @@ public class SupplierDaoJdbc implements SupplierDao {
     public void remove(int id) {
 
         String query = "DELETE FROM supplier WHERE supplier_id = '" + id +"';";
-        executeQuery(query);
+        connector.executeQuery(query);
+
 
     }
 
@@ -88,7 +87,7 @@ public class SupplierDaoJdbc implements SupplierDao {
 
         List<Supplier> supplierList = new ArrayList<>();
 
-        try (Connection connection = getConnection();
+        try (Connection connection = connector.getConnection();
              Statement statement =connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query);
         ){
@@ -104,24 +103,6 @@ public class SupplierDaoJdbc implements SupplierDao {
         }
 
         return supplierList;
-    }
-
-    private Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(
-                DATABASE,
-                DB_USER,
-                DB_PASSWORD);
-    }
-
-    private void executeQuery(String query) {
-        try (Connection connection = getConnection();
-             Statement statement =connection.createStatement();
-        ){
-            statement.execute(query);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
 }
