@@ -1,6 +1,8 @@
 DROP TABLE IF EXISTS product;
 DROP TABLE IF EXISTS categories;
 DROP TABLE IF EXISTS supplier;
+DROP TABLE IF EXISTS user;
+
 
 
 CREATE TABLE categories
@@ -28,4 +30,13 @@ CREATE TABLE product
   description VARCHAR(255),
   category INT REFERENCES categories(category_id),
   supplier INT REFERENCES supplier(supplier_id)
+);
+
+CREATE TABLE user
+(
+  id            SERIAL PRIMARY KEY NOT NULL,
+  username      VARCHAR(40) UNIQUE,
+  email         VARCHAR(255) UNIQUE ,
+  password         VARCHAR(255)
+
 );
