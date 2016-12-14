@@ -33,7 +33,7 @@ public class LoginDaoJbdc implements LoginDao {
             preparedStatement.setString(3, user.getPassword());
 
             preparedStatement.execute();
-
+            ProductController.USER_SAVED = true;
         } catch (SQLException e) {
             e.printStackTrace();
         }

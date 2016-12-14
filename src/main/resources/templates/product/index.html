@@ -58,7 +58,11 @@
     </div>
     <form action="/logout" method="get" th:if="${user != null}">
         <div class="col-sm-3">
-            <p th:text="${'Logged in as:' + user.getUsername()}"></p>
+            <div class="row">
+                <div id="category-title">
+                    <p th:text="${'Logged in as: ' + user.getUsername()}"></p>
+                </div>
+            </div>
             <button type="submit" class="btn btn-sm btn-success btn-block">
                 Log Out
             </button>
@@ -66,8 +70,21 @@
     </form>
 
 </div>
-<p th:if="${loginerror == true}" align="center">Ivalid Username or Password !!</p>
-<p th:if="${registrationerror == true}" align="center">Existing Username, please choose antother !</p>
+<div class="row">
+    <div class="col-sm-12" id="category-title">
+        <p th:if="${loginerror == true}" align="center">Ivalid Username or Password !!</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12" id="category-title">
+        <p th:if="${registrationerror == true}" align="center">Existing Username, please choose antother !</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12" id="category-title">
+        <p th:if="${saveduser == true}" align="center" th:text="'You are now Registered !'"></p>
+    </div>
+</div>
 
 <br> </br>
 

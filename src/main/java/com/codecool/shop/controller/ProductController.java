@@ -15,6 +15,7 @@ import java.util.Map;
 public class ProductController {
     public static boolean LOGIN_ERROR = false;
     public static boolean REGISTRATION_ERROR = false;
+    public static boolean USER_SAVED = false;
 
     //handle the basic rendering, and the session
     private static void eventHandler(SupplierDao supplierDataStore, ProductCategoryDao productCategoryDataStore, Map params, Request req) {
@@ -38,6 +39,7 @@ public class ProductController {
 
         }
         System.out.println(user);
+        params.put("saveduser", USER_SAVED);
         params.put("loginerror", LOGIN_ERROR);
         params.put("registrationerror", REGISTRATION_ERROR);
         params.put("user", user);
@@ -46,6 +48,7 @@ public class ProductController {
         params.put("totalsum", totalSum);
         LOGIN_ERROR = false;
         REGISTRATION_ERROR = false;
+        USER_SAVED = false;
 
     }
 
