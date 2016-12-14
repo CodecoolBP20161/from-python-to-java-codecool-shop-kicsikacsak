@@ -27,7 +27,6 @@ public class Main {
         // populate some data for the memory storage
         ExampleData.populateData();
 
-        // filter the products by category id
         get("/filter/:id", ProductController::renderProductsByCategory, new ThymeleafTemplateEngine());
 
         get("/supplier/:id", ProductController::renderProductsBySupplier, new ThymeleafTemplateEngine());

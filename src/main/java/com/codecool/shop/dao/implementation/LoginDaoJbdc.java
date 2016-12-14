@@ -41,12 +41,15 @@ public class LoginDaoJbdc implements LoginDao {
     }
 
     public User find(String username, String password) {
-        String query = "SELECT * FROM webshopuser WHERE username ='" + username + "' AND password='" + password +"';";
+        String query = "SELECT * FROM webshopuser WHERE username = ? AND password = ? ;";
 
         try (Connection connection = connector.getConnection();
-             Statement statement =connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query))
+             PreparedStatement statement = connection.prepareStatement(query))
         {
+            statement.setString(1, username);
+            statement.setString(2, password);
+            ResultSet resultSet = statement.executeQuery();
+
             if(resultSet.next()){
                 return  new User(
                         resultSet.getString("username"),
@@ -64,12 +67,15 @@ public class LoginDaoJbdc implements LoginDao {
     }
 
     public boolean checkExistingUsername(String username) {
-        String query = "SELECT * FROM webshopuser WHERE username ='" + username + "';";
+        String query = "SELECT * FROM webshopuser WHERE username = ? ;";
 
         try (Connection connection = connector.getConnection();
-             Statement statement =connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query))
+             PreparedStatement statement = connection.prepareStatement(query))
+
         {
+            statement.setString(1, username);
+            ResultSet resultSet = statement.executeQuery();
+
             if(resultSet.next()){
                 ProductController.REGISTRATION_ERROR = true;
                 return true;
