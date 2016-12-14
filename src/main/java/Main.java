@@ -1,9 +1,11 @@
 import com.codecool.shop.controller.DataStoreSwitcher;
 import com.codecool.shop.controller.ProductController;
+import com.codecool.shop.controller.LoginController;
 import com.codecool.shop.dao.implementation.ProductDaoJdbc;
 import com.codecool.shop.datafiller.ExampleData;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Product;
+import com.codecool.shop.model.User;
 import spark.Request;
 import spark.Response;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
@@ -29,6 +31,36 @@ public class Main {
         get("/filter/:id", ProductController::renderProductsByCategory, new ThymeleafTemplateEngine());
 
         get("/supplier/:id", ProductController::renderProductsBySupplier, new ThymeleafTemplateEngine());
+
+        post("/registration", (Request req, Response res) -> {
+            LoginController userController = new LoginController();
+            User user = new User(req.queryParams("username"), req.queryParams("password"), req.queryParams("email"));
+            if(!userController.checkExistingUser(req.queryParams("username"))) {
+                userController.saveUser(user);
+            }
+            res.redirect("/");
+            return "";
+        });
+
+        get("/logout", (Request req, Response res) -> {
+            req.session().attribute("user", null);
+            res.redirect("/");
+            return "";
+        });
+
+
+        post("/login", (Request req, Response res) -> {
+            LoginController userController = new LoginController();
+            User user  = null;
+            if (req.session().attribute("user") == null) {
+                user = userController.checkUser(req.queryParams("username"), req.queryParams("password"));
+            } else {
+                user = req.session().attribute("user");
+            }
+            req.session().attribute("user", user);
+            res.redirect("/");
+            return "";
+        });
 
         post("/cart", (Request req, Response res) -> {
 

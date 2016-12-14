@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS product;
 DROP TABLE IF EXISTS categories;
 DROP TABLE IF EXISTS supplier;
-DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS webshopuser;
 
 
 
@@ -32,7 +32,7 @@ CREATE TABLE product
   supplier INT REFERENCES supplier(supplier_id)
 );
 
-CREATE TABLE user
+CREATE TABLE webshopuser
 (
   id            SERIAL PRIMARY KEY NOT NULL,
   username      VARCHAR(40) UNIQUE,

@@ -37,7 +37,39 @@
     </form>
 
 </div>
+<div class="container">
+    <form action="/login" method="post" th:if="${user == null}">
+        <div class="col-sm-3">
+            <label for="inputEmail" class="sr-only">Email address</label>
+            <input type="text" id="inputEmail" class="form-control" placeholder="Email address" required="required" autofocus="autofocus" name="username"></input>
+        </div>
+        <div class="col-sm-3">
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="required" name="password"></input>
+        </div>
+        <div class="col-sm-3">
+            <button class="btn btn-md btn-primary btn-block" type="submit">Sign in</button>
+        </div>
+    </form>
+    <div class="col-sm-3" th:if="${user == null}">
+        <button type="submit" class="btn btn-md btn-success btn-block" data-toggle="modal" data-target="#registration">
+            Register
+        </button>
+    </div>
+    <form action="/logout" method="get" th:if="${user != null}">
+        <div class="col-sm-3">
+            <p th:text="${'Logged in as:' + user.getUsername()}"></p>
+            <button type="submit" class="btn btn-sm btn-success btn-block">
+                Log Out
+            </button>
+        </div>
+    </form>
 
+</div>
+<p th:if="${loginerror == true}" align="center">Ivalid Username or Password !!</p>
+<p th:if="${registrationerror == true}" align="center">Existing Username, please choose antother !</p>
+
+<br> </br>
 
 <div class="container">
 
@@ -85,6 +117,39 @@
                 </div>
             </div>
 
+            <div class="modal fade" id="registration" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Registration</h4>
+                        </div>
+                        <div class="modal-body">
+                        </div>
+                        <div class="container-fluid">
+                            <form action="/registration" method="post">
+                                    <div class="form-group">
+                                        <label for="usr">Username:</label>
+                                        <input type="text" class="form-control" name="username" id="usr" required="required"></input>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="pwd">Password:</label>
+                                        <input type="password" class="form-control" id="pwd" name="password" required="required"></input>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">E-mail:</label>
+                                        <input type="email" class="form-control" id="email" name="email"></input>
+                                    </div>
+                                    <button type="submit" class="btn">Register</button>
+                                </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         <div class="col-sm-8">
 
                 <a href="/" class="btn btn-home btn-lg">
@@ -122,14 +187,8 @@
         </div>
         <div class="row">
             <div class="col-sm-12" id="category-title">
-                <!--<span th:if="${category.name} == 'Tablet'" th:text="${category.name}"></span>-->
-                <!--<span th:if="${category.name} == 'Case'" th:text="${category.name}"></span>-->
-                <!--<span th:if="${category.name} == 'Smartphone'" th:text="${category.name}"></span>-->
                 <strong th:text="${allproducts != null} ? ${allproducts} : ${category.name}">someValue</strong>
-
-                <!--<strong th:text="${category.name}">Category Title</strong>-->
-
-        </div>
+            </div>
         </div>
 
     <div id="products" class="row list-group">

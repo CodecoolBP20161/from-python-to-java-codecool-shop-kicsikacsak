@@ -3,6 +3,8 @@ package com.codecool.shop.controller;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.model.Cart;
+import com.codecool.shop.model.User;
+import com.sun.org.apache.regexp.internal.RE;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -11,6 +13,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ProductController {
+    public static boolean LOGIN_ERROR = false;
+    public static boolean REGISTRATION_ERROR = false;
 
     //handle the basic rendering, and the session
     private static void eventHandler(SupplierDao supplierDataStore, ProductCategoryDao productCategoryDataStore, Map params, Request req) {
@@ -22,8 +26,10 @@ public class ProductController {
         Integer cartlength = 0;
         HashMap cartContent = null;
         Float totalSum = 0.0f;
+        User user = null;
         try {
             Cart cart = req.session().attribute("cart");
+            user = req.session().attribute("user");
             cartlength = cart.allProducts();
             cartContent = cart.getProducts();
             totalSum = cart.getTotalSum();
@@ -31,10 +37,15 @@ public class ProductController {
         } catch (NullPointerException e) {
 
         }
-//        System.out.println(cartContent);
+        System.out.println(user);
+        params.put("loginerror", LOGIN_ERROR);
+        params.put("registrationerror", REGISTRATION_ERROR);
+        params.put("user", user);
         params.put("cartlength", cartlength);
         params.put("cart", cartContent);
         params.put("totalsum", totalSum);
+        LOGIN_ERROR = false;
+        REGISTRATION_ERROR = false;
 
     }
 
