@@ -37,6 +37,13 @@ CREATE TABLE webshopuser
   id            SERIAL PRIMARY KEY NOT NULL,
   username      VARCHAR(40) UNIQUE,
   email         VARCHAR(255) UNIQUE ,
-  password         VARCHAR(255)
+  password         VARCHAR(255),
+  country VARCHAR(255),
+  zipcode VARCHAR(10),
+  phone VARCHAR(20),
+  firstname VARCHAR(25),
+  lastname VARCHAR(25),
+  address VARCHAR(255)
+
 
 );

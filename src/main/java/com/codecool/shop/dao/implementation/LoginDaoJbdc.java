@@ -25,12 +25,19 @@ public class LoginDaoJbdc implements LoginDao {
     }
 
     public void add(User user) {
-        String query = "INSERT INTO webshopuser (username, email, password) VALUES (?, ?, ?);";
+        String query = "INSERT INTO webshopuser (username, email, password, address, country, zipcode, phone, firstname, lastname) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
         try (Connection connection = connector.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)){
 
             preparedStatement.setString(1, user.getUsername());
             preparedStatement.setString(2, user.getEmail());
             preparedStatement.setString(3, user.getPassword());
+            preparedStatement.setString(4, user.getAddress());
+            preparedStatement.setString(5, user.getCountry());
+            preparedStatement.setString(6, user.getZipcode());
+            preparedStatement.setString(7, user.getPhone());
+            preparedStatement.setString(8, user.getFirstname());
+            preparedStatement.setString(9, user.getLastname());
 
             preparedStatement.execute();
             ProductController.USER_SAVED = true;
@@ -54,7 +61,13 @@ public class LoginDaoJbdc implements LoginDao {
                 return  new User(
                         resultSet.getString("username"),
                         resultSet.getString("email"),
-                        resultSet.getString("password"));
+                        resultSet.getString("password"),
+                        resultSet.getString("address"),
+                        resultSet.getString("country"),
+                        resultSet.getString("zipcode"),
+                        resultSet.getString("phone"),
+                        resultSet.getString("firstname"),
+                        resultSet.getString("lastname"));
             }else{
                 ProductController.LOGIN_ERROR = true;
                 return null;

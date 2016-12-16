@@ -4,6 +4,7 @@ import com.codecool.shop.dao.LoginDao;
 import com.codecool.shop.dao.implementation.LoginDaoJbdc;
 import com.codecool.shop.model.User;
 
+import com.codecool.shop.util.MD5Hash;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -38,6 +39,11 @@ public class LoginController {
 
     public User checkUser(String  username, String password) {
         LoginDao loginDao = LoginDaoJbdc.getInstance();
+        try {
+            password = MD5Hash.convertToHash(password);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
         return loginDao.find(username, password);
 
     }

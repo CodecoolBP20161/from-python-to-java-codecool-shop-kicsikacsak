@@ -89,4 +89,10 @@ public class ProductController {
 
     }
 
+    public static ModelAndView renderCheckout(Request request, Response response) {
+        Map<Object, Object> params = new HashMap<>();
+        eventHandler(DataStoreSwitcher.getSupplierDao(), DataStoreSwitcher.getProductCategoryDao(), params, request);
+        return new ModelAndView(params, "product/checkout");
+    }
+
 }

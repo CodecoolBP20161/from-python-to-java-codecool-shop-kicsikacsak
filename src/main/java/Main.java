@@ -1,4 +1,5 @@
 import com.codecool.shop.controller.DataStoreSwitcher;
+import com.codecool.shop.util.MD5Hash;
 import com.codecool.shop.controller.ProductController;
 import com.codecool.shop.controller.LoginController;
 import com.codecool.shop.dao.implementation.ProductDaoJdbc;
@@ -33,13 +34,23 @@ public class Main {
 
         post("/registration", (Request req, Response res) -> {
             LoginController userController = new LoginController();
-            User user = new User(req.queryParams("username"), req.queryParams("password"), req.queryParams("email"));
+            User user = new User(req.queryParams("username"),
+                    MD5Hash.convertToHash(req.queryParams("password")),
+                    req.queryParams("email"),
+                    req.queryParams("address"),
+                    req.queryParams("country"),
+                    req.queryParams("zipcode"),
+                    req.queryParams("phone"),
+                    req.queryParams("firstname"),
+                    req.queryParams("lastname"));
             if(!userController.checkExistingUser(req.queryParams("username"))) {
-                userController.saveUser(user);
+                LoginController.saveUser(user);
             }
             res.redirect("/");
             return "";
         });
+
+        get("/checkout", ProductController::renderCheckout, new ThymeleafTemplateEngine());
 
         get("/logout", (Request req, Response res) -> {
             req.session().attribute("user", null);
