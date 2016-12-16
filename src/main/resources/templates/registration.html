@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<body>
+<div th:fragment="registration">
+<div class="container-fluid">
+    <form action="/registration" method="post" name="form">
+        <div class="form-group">
+            <label for="usr">Username:</label>
+            <input type="text" class="form-control" name="username" id="usr"
+                   required="required" onblur="checkUser();"></input>
+            <div id="usererror"></div>
+        </div>
+        <div class="form-group">
+            <label for="pwd">Password:</label>
+            <input type="password" class="form-control" id="pwd"
+                   name="password" required="required" onblur="checkPassword();"></input>
+            <div id="passworderror"></div>
+        </div>
+        <div class="form-group">
+            <label for="firstname">First Name:</label>
+            <input type="text" class="form-control" name="firstname" id="firstname"
+                   required="required" onblur="checkUser();"></input>
+            <div id="first_name_error"></div>
+        </div>
+        <div class="form-group">
+            <label for="lastname">Last Name:</label>
+            <input type="text" class="form-control" name="lastname" id="lastname"
+                   required="required" onblur="checkUser();"></input>
+            <div id="last_name_error"></div>
+        </div>
+        <div class="form-group">
+            <label for="email">E-mail:</label>
+            <input type="email" class="form-control" id="email"
+                   name="email" onblur="checkEmail();"></input>
+            <div id="emailerror"></div>
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone Number:</label>
+            <input type="number" class="form-control" id="phone"
+                   name="phone" onblur="checkEmail();"></input>
+            <div id="phone_error"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Form Name -->
+                <legend>Address Details</legend>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="address">Address</label>
+                    <div class="col-sm-10">
+                        <input type="text" placeholder="Address" class="form-control" id="address"></input>
+                    </div>
+                </div>
+                <br> </br>
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="city">City</label>
+                    <div class="col-sm-10">
+                        <input type="text" placeholder="City" class="form-control" id="city"></input>
+                    </div>
+                </div>
+                <br> </br>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="postcode">Postcode</label>
+                    <div class="col-sm-4">
+                        <input type="text" placeholder="Post Code" class="form-control" id="postcode"></input>
+                    </div>
+                </div>
+                <br> </br>
+
+
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="country">Country</label>
+                    <div class="col-sm-10">
+                        <input type="text" placeholder="Country" class="form-control" id="country"></input>
+                    </div>
+                </div>
+                <br> </br>
+
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
+</div>
+</body>
+</html>
