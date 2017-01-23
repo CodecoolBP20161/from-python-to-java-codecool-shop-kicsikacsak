@@ -4,10 +4,14 @@ import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.User;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,10 +56,37 @@ public class ProductController {
     public static ModelAndView renderProducts(Request req, Response res) {
 
         Map<Object, Object> params = new HashMap<>();
+        VideoServiceController videoServiceController = new VideoServiceController();
+        String jsonObject = null;
+        JSONArray videoJson = null;
+
+        try {
+            jsonObject = videoServiceController.getVideoForProduct("Lenovo");
+            System.out.println(jsonObject);
+        }catch (URISyntaxException | IOException e) {
+            System.out.println(e);
+        }
+        try {
+            videoJson = new JSONArray(jsonObject);
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        String youtubecode = null;
+
+        for(Object wtf : videoJson) {
+            JSONObject object = new JSONObject(wtf.toString());
+            if(object.get("provider").equals("youtube")) {
+                youtubecode = object.get("embed code").toString();
+                break;
+            }
+        }
 
         params.put("category", DataStoreSwitcher.getProductCategoryDao().find(1));
         params.put("products", DataStoreSwitcher.getProductDao().getAll());
         eventHandler(DataStoreSwitcher.getSupplierDao(), DataStoreSwitcher.getProductCategoryDao(), params, req);
+        params.put("video", youtubecode);
         params.put("allproducts", "All Products");
 
         return new ModelAndView(params, "product/index");
@@ -64,7 +95,6 @@ public class ProductController {
     public static ModelAndView renderProductsByCategory(Request request, Response response) {
 
         Map<Object, Object> params = new HashMap<>();
-
 
         //filter by the request id.
         params.put("category", DataStoreSwitcher.getProductCategoryDao().find(Integer.parseInt(request.params(":id"))));
