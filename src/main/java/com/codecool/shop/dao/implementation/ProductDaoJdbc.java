@@ -30,8 +30,7 @@ public class ProductDaoJdbc implements ProductDao {
     @Override
     public void add(Product product) {
 
-
-
+        
         String query = "INSERT INTO product (name, default_price, currency, description, category, supplier) VALUES (?, ?, ?, ?, ?, ?);";
         try (Connection connection = connector.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(query)){
 
