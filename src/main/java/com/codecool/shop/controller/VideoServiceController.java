@@ -20,7 +20,9 @@ public class VideoServiceController {
     private static final String SERVICE_URL = "http://localhost:60000";
 
     public String getVideoForProduct(String searchWord) throws URISyntaxException, IOException {
-        return execute("/apivideos?search=" + searchWord);
+        String content =  execute("/apivideos?search=" + searchWord.replace(" ", "+"));
+        return getLink(content);
+
     }
 
     private String execute(String url) throws IOException, URISyntaxException {
@@ -33,16 +35,10 @@ public class VideoServiceController {
                 .asString();
     }
 
-    public String getLink(String searchWord) throws NullPointerException{
-        String jsonString = null;
+    private String getLink(String jsonString) {
         JSONArray videoJsonArray;
         String link = null;
 
-        try {
-           jsonString = getVideoForProduct(searchWord.replace(" ", "+"));
-        }catch (URISyntaxException | IOException e){
-           e.printStackTrace();
-        }
         if(jsonString != null) {
             videoJsonArray = new JSONArray(jsonString);
             for (Object obj : videoJsonArray){

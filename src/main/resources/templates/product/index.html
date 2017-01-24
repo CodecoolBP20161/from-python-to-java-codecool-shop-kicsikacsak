@@ -211,7 +211,7 @@
                             <p th:text="${prod.name}"></p>
                         </div>
                         <div class="modal-body">
-                            <div th:utext="${video.getLink(prod.name)}">
+                            <div th:utext="${video.getVideoForProduct(prod.name)}">
                             </div>
                         </div>
                         <div class="modal-footer">
