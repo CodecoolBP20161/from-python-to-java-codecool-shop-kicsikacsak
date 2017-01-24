@@ -52,10 +52,12 @@ public class ProductController {
     public static ModelAndView renderProducts(Request req, Response res) {
 
         Map<Object, Object> params = new HashMap<>();
+        VideoServiceController videoServiceController = new VideoServiceController();
 
         params.put("category", DataStoreSwitcher.getProductCategoryDao().find(1));
         params.put("products", DataStoreSwitcher.getProductDao().getAll());
         eventHandler(DataStoreSwitcher.getSupplierDao(), DataStoreSwitcher.getProductCategoryDao(), params, req);
+        params.put("video", videoServiceController);
         params.put("allproducts", "All Products");
 
         return new ModelAndView(params, "product/index");
@@ -65,15 +67,12 @@ public class ProductController {
 
         Map<Object, Object> params = new HashMap<>();
 
-
         //filter by the request id.
         params.put("category", DataStoreSwitcher.getProductCategoryDao().find(Integer.parseInt(request.params(":id"))));
         params.put("products", DataStoreSwitcher.getProductDao().getBy(DataStoreSwitcher.getProductCategoryDao().find(Integer.parseInt(request.params(":id")))));
         eventHandler(DataStoreSwitcher.getSupplierDao(), DataStoreSwitcher.getProductCategoryDao(), params, request);
 
-
         return new ModelAndView(params, "product/index");
-
     }
 
     public static ModelAndView renderProductsBySupplier(Request request, Response response) {
@@ -86,7 +85,6 @@ public class ProductController {
         eventHandler(DataStoreSwitcher.getSupplierDao(), DataStoreSwitcher.getProductCategoryDao(), params, request);
 
         return new ModelAndView(params, "product/index");
-
     }
 
     public static ModelAndView renderCheckout(Request request, Response response) {
@@ -94,5 +92,4 @@ public class ProductController {
         eventHandler(DataStoreSwitcher.getSupplierDao(), DataStoreSwitcher.getProductCategoryDao(), params, request);
         return new ModelAndView(params, "product/checkout");
     }
-
 }
