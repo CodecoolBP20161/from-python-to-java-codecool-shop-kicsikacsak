@@ -11,6 +11,7 @@ import java.net.URISyntaxException;
 /**
  * Created by svindler on 23.01.2017.
  */
+
 public class VideoServiceController {
 
     private static final Logger logger = LoggerFactory.getLogger(VideoServiceController.class);
@@ -19,6 +20,8 @@ public class VideoServiceController {
     public String getVideoForProduct(String searchWord) throws URISyntaxException, IOException {
         return execute("/apivideos?search=" + searchWord);
     }
+
+
 
     private String execute(String url) throws IOException, URISyntaxException {
         URI uri = new URIBuilder(SERVICE_URL + url).build();

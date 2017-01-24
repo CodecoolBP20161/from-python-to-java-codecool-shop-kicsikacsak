@@ -57,17 +57,16 @@ public class ProductController {
 
         Map<Object, Object> params = new HashMap<>();
         VideoServiceController videoServiceController = new VideoServiceController();
-        String jsonObject = null;
-        JSONArray videoJson = null;
+        String jsonString = null;
+        JSONArray videoJsonArray = null;
 
         try {
-            jsonObject = videoServiceController.getVideoForProduct("Lenovo");
-            System.out.println(jsonObject);
+            jsonString = videoServiceController.getVideoForProduct("Lenovo");
         }catch (URISyntaxException | IOException e) {
             System.out.println(e);
         }
         try {
-            videoJson = new JSONArray(jsonObject);
+            videoJsonArray = new JSONArray(jsonString);
 
         } catch (Exception e) {
             System.out.println(e);
@@ -75,7 +74,7 @@ public class ProductController {
 
         String youtubecode = null;
 
-        for(Object wtf : videoJson) {
+        for(Object wtf : videoJsonArray) {
             JSONObject object = new JSONObject(wtf.toString());
             if(object.get("provider").equals("youtube")) {
                 youtubecode = object.get("embed code").toString();
