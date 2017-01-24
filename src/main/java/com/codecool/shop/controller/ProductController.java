@@ -4,10 +4,13 @@ import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.User;
+import org.json.JSONObject;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,9 +52,25 @@ public class ProductController {
 
     }
 
-    public static ModelAndView renderProducts(Request req, Response res) {
+    public static ModelAndView renderProducts(Request req, Response res) throws IOException, URISyntaxException {
 
         Map<Object, Object> params = new HashMap<>();
+
+        BannerServiceController bannerServiceController = new BannerServiceController();
+        try {
+            JSONObject jsonObject = new JSONObject(bannerServiceController.getBanner());
+            params.put("banner", jsonObject.get("Advertisement"));
+            JSONObject jsonObject1 = new JSONObject(bannerServiceController.getBannerByUsernameAndCart());
+            params.put("banner2", jsonObject1.get("Advertisement"));
+            params.put("banner3", "szar");
+
+
+        }catch (IOException | URISyntaxException e) {
+            System.out.print(e);
+        }
+
+        //JSONObject jsonObject1 = new JSONObject(bannerServiceController.getBannerByUsernameAndCart());
+        //params.put("banner2", jsonObject1.get("Advertisement"));
 
         params.put("category", DataStoreSwitcher.getProductCategoryDao().find(1));
         params.put("products", DataStoreSwitcher.getProductDao().getAll());
