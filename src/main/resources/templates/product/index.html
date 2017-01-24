@@ -203,7 +203,6 @@
     <div id="products" class="row list-group">
 
         <div class="item col-xs-4 col-lg-4" th:each="prod,iterStat : ${products}">
-
             <div class="modal fade" id="" th:attr="id=${prod.getId()}" role="dialog">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -250,6 +249,7 @@
     </div>
 
 </div>
+
 </div>
 <div th:replace="footer :: copy"></div>
 <script type="text/javascript" src="/javascript/index.js"></script>

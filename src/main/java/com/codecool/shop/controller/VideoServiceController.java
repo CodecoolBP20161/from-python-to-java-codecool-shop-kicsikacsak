@@ -35,29 +35,27 @@ public class VideoServiceController {
 
     public String getLink(String searchWord) throws NullPointerException{
         String jsonString = null;
-        JSONArray videoJsonArray = null;
-       try {
-           jsonString = getVideoForProduct(searchWord.replace(" ", "+"));
-       }catch (URISyntaxException | IOException e){
-           e.printStackTrace();
-       }
-       if (jsonString == null) {
-           throw new NullPointerException();
-       }
-        try {
-            videoJsonArray = new JSONArray(jsonString);
-
-        } catch (NullPointerException e) {
-            e.getMessage();
-        }
+        JSONArray videoJsonArray;
         String link = null;
 
-       for (Object obj : videoJsonArray){
-           JSONObject jsonObject = new JSONObject(obj.toString());
-           if (jsonObject.get("provider").equals("youtube") &&jsonObject.get("category").equals("review")){
-               link = jsonObject.get("embed code").toString();
-           }
-       }
+        try {
+           jsonString = getVideoForProduct(searchWord.replace(" ", "+"));
+        }catch (URISyntaxException | IOException e){
+           e.printStackTrace();
+        }
+        if(jsonString != null) {
+            videoJsonArray = new JSONArray(jsonString);
+            for (Object obj : videoJsonArray){
+                JSONObject jsonObject = new JSONObject(obj.toString());
+                if (jsonObject.get("provider").equals("youtube") &&jsonObject.get("category").equals("review")){
+                   link = jsonObject.get("embed code").toString();
+                }
+            }
+        }else {
+            jsonString = "Sorry we cannot load a video now.";
+            return jsonString;
+        }
+
        return link;
     }
 }
