@@ -1,6 +1,8 @@
 package com.codecool.shop.controller;
 
 import org.apache.http.client.utils.URIBuilder;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,8 +23,6 @@ public class VideoServiceController {
         return execute("/apivideos?search=" + searchWord);
     }
 
-
-
     private String execute(String url) throws IOException, URISyntaxException {
         URI uri = new URIBuilder(SERVICE_URL + url).build();
 
@@ -31,5 +31,33 @@ public class VideoServiceController {
                 .execute()
                 .returnContent()
                 .asString();
+    }
+
+    public String getLink(String searchWord) throws NullPointerException{
+        String jsonString = null;
+        JSONArray videoJsonArray = null;
+       try {
+           jsonString = getVideoForProduct(searchWord.replace(" ", "+"));
+       }catch (URISyntaxException | IOException e){
+           e.printStackTrace();
+       }
+       if (jsonString == null) {
+           throw new NullPointerException();
+       }
+        try {
+            videoJsonArray = new JSONArray(jsonString);
+
+        } catch (NullPointerException e) {
+            e.getMessage();
+        }
+        String link = null;
+
+       for (Object obj : videoJsonArray){
+           JSONObject jsonObject = new JSONObject(obj.toString());
+           if (jsonObject.get("provider").equals("youtube") &&jsonObject.get("category").equals("review")){
+               link = jsonObject.get("embed code").toString();
+           }
+       }
+       return link;
     }
 }

@@ -4,14 +4,10 @@ import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.User;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -57,35 +53,11 @@ public class ProductController {
 
         Map<Object, Object> params = new HashMap<>();
         VideoServiceController videoServiceController = new VideoServiceController();
-        String jsonString = null;
-        JSONArray videoJsonArray = null;
-
-        try {
-            jsonString = videoServiceController.getVideoForProduct("Lenovo");
-        }catch (URISyntaxException | IOException e) {
-            System.out.println(e);
-        }
-        try {
-            videoJsonArray = new JSONArray(jsonString);
-
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-        String youtubecode = null;
-
-        for(Object wtf : videoJsonArray) {
-            JSONObject object = new JSONObject(wtf.toString());
-            if(object.get("provider").equals("youtube")) {
-                youtubecode = object.get("embed code").toString();
-                break;
-            }
-        }
 
         params.put("category", DataStoreSwitcher.getProductCategoryDao().find(1));
         params.put("products", DataStoreSwitcher.getProductDao().getAll());
         eventHandler(DataStoreSwitcher.getSupplierDao(), DataStoreSwitcher.getProductCategoryDao(), params, req);
-        params.put("video", youtubecode);
+        params.put("video", videoServiceController);
         params.put("allproducts", "All Products");
 
         return new ModelAndView(params, "product/index");
@@ -100,9 +72,7 @@ public class ProductController {
         params.put("products", DataStoreSwitcher.getProductDao().getBy(DataStoreSwitcher.getProductCategoryDao().find(Integer.parseInt(request.params(":id")))));
         eventHandler(DataStoreSwitcher.getSupplierDao(), DataStoreSwitcher.getProductCategoryDao(), params, request);
 
-
         return new ModelAndView(params, "product/index");
-
     }
 
     public static ModelAndView renderProductsBySupplier(Request request, Response response) {
@@ -115,7 +85,6 @@ public class ProductController {
         eventHandler(DataStoreSwitcher.getSupplierDao(), DataStoreSwitcher.getProductCategoryDao(), params, request);
 
         return new ModelAndView(params, "product/index");
-
     }
 
     public static ModelAndView renderCheckout(Request request, Response response) {
@@ -123,5 +92,4 @@ public class ProductController {
         eventHandler(DataStoreSwitcher.getSupplierDao(), DataStoreSwitcher.getProductCategoryDao(), params, request);
         return new ModelAndView(params, "product/checkout");
     }
-
 }

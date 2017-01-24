@@ -212,6 +212,8 @@
                             <p th:text="${prod.name}"></p>
                         </div>
                         <div class="modal-body">
+                            <div th:utext="${video.getLink(prod.name)}">
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -249,7 +251,6 @@
 
 </div>
 </div>
-<div th:utext="${video}"></div>
 <div th:replace="footer :: copy"></div>
 <script type="text/javascript" src="/javascript/index.js"></script>
 <!-- jQuery library -->
