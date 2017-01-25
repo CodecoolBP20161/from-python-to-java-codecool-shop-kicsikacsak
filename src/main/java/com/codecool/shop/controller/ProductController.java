@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ProductController {
+
     public static boolean LOGIN_ERROR = false;
     public static boolean REGISTRATION_ERROR = false;
     public static boolean USER_SAVED = false;
