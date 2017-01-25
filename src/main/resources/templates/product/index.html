@@ -31,11 +31,11 @@
 
 <div class="jumbotron text-center">
     <form action="/" method="get">
-    <button type="submit" class="btn-custom">
-        <h1>Codecool Shop</h1>
-    </button>
+        <button type="submit" class="btn-custom">
+            <h1>Codecool Shop</h1>
+        </button>
     </form>
-<div id="test"></div>
+    <div id="test"></div>
 </div>
 <div class="container">
     <form action="/login" method="post" th:if="${user == null}">
@@ -158,13 +158,12 @@
                     </div>
                 </div>
             </div>
-
         <div class="col-sm-8">
 
                 <a href="/" class="btn btn-home btn-lg">
                 <span class="glyphicon glyphicon-home"></span> Home
                 </a>
-                <button class="btn dropdown-toggle" id="filter1" type="button" data-toggle="dropdown">Category
+                <button class="btn dropdown-toggle" id="btn-categ" type="button" data-toggle="dropdown">Category
                     <span class="caret"></span></button>
                     <ul class="dropdown-menu dropdown-menu-left">
 
@@ -177,7 +176,7 @@
                         <li role="presentation"><a href="/">All</a></li>
                     </ul>
             <div class="btn-group">
-                <button class="btn dropdown-toggle" id="filter2" type="button" data-toggle="dropdown">Supplier
+                <button class="btn dropdown-toggle" id="btn-supplier" type="button" data-toggle="dropdown">Supplier
                     <span class="caret"></span></button>
                     <ul class="dropdown-menu dropdown-menu-left">
                         <li th:each="supp : ${allsuppliers}"><a href="/filter" id="tablet" th:attr="href='/supplier/' + ${supp.id}" th:text="${supp.name}">Amazon</a></li>
@@ -215,7 +214,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-default btn-close" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
