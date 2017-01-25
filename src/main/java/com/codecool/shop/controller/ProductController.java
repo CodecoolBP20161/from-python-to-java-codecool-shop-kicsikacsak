@@ -50,27 +50,28 @@ public class ProductController {
         REGISTRATION_ERROR = false;
         USER_SAVED = false;
 
-    }
-
-    public static ModelAndView renderProducts(Request req, Response res) throws IOException, URISyntaxException {
-
-        Map<Object, Object> params = new HashMap<>();
 
         BannerServiceController bannerServiceController = new BannerServiceController();
         try {
+            if(user == null){
             JSONObject jsonObject = new JSONObject(bannerServiceController.getBanner());
-            params.put("banner", jsonObject.get("Advertisement"));
-            JSONObject jsonObject1 = new JSONObject(bannerServiceController.getBannerByUsernameAndCart());
-            params.put("banner2", jsonObject1.get("Advertisement"));
-            params.put("banner3", "szar");
+            params.put("banner", jsonObject.get("Advertisement"));}
 
+            if(user != null){
+                Cart cart = req.session().attribute("cart");
+                JSONObject jsonObject1 = new JSONObject(bannerServiceController.getBannerByUsernameAndCart(user, cart));
+                System.out.println("------------------------------"+ cart.getProducts().toString());
+                params.put("banner2", jsonObject1.get("Advertisement"));}
 
         }catch (IOException | URISyntaxException e) {
             System.out.print(e);
         }
 
-        //JSONObject jsonObject1 = new JSONObject(bannerServiceController.getBannerByUsernameAndCart());
-        //params.put("banner2", jsonObject1.get("Advertisement"));
+    }
+
+    public static ModelAndView renderProducts(Request req, Response res) throws IOException, URISyntaxException {
+
+        Map<Object, Object> params = new HashMap<>();
 
         params.put("category", DataStoreSwitcher.getProductCategoryDao().find(1));
         params.put("products", DataStoreSwitcher.getProductDao().getAll());

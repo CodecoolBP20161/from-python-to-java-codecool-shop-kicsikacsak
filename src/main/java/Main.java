@@ -7,6 +7,7 @@ import com.codecool.shop.datafiller.ExampleData;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.User;
+import com.codecool.shop.util.SQLRunner;
 import spark.Request;
 import spark.Response;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
@@ -26,6 +27,7 @@ public class Main {
         port(8888);
 
         // populate some data for the memory storage
+        SQLRunner.initDB();
         ExampleData.populateData();
 
         get("/filter/:id", ProductController::renderProductsByCategory, new ThymeleafTemplateEngine());
