@@ -1,4 +1,5 @@
 import com.codecool.shop.controller.DataStoreSwitcher;
+import com.codecool.shop.controller.VideoServiceController;
 import com.codecool.shop.util.MD5Hash;
 import com.codecool.shop.controller.ProductController;
 import com.codecool.shop.controller.LoginController;
@@ -8,6 +9,7 @@ import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.User;
 import com.codecool.shop.util.SQLRunner;
+import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
@@ -29,6 +31,18 @@ public class Main {
         // populate some data for the memory storage
         SQLRunner.initDB();
         ExampleData.populateData();
+
+        post("/getdata", (Request req, Response res) -> {
+            Integer productId = new JSONObject(req.body()).getInt("productid");
+            VideoServiceController videoServiceController = new VideoServiceController();
+            ProductDaoJdbc productDaoJdbc = ProductDaoJdbc.getInstance();
+            String videoUrl = videoServiceController.getVideoForProduct(productDaoJdbc.find(productId).getName());
+            System.out.println(videoUrl);
+            return new JSONObject()
+                    .put("videourl", videoUrl)
+                    .put("name", productDaoJdbc.find(productId).getName())
+                    .toString();
+        });
 
         get("/filter/:id", ProductController::renderProductsByCategory, new ThymeleafTemplateEngine());
 
