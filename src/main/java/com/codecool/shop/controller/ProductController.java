@@ -57,10 +57,11 @@ public class ProductController {
             JSONObject jsonObject = new JSONObject(bannerServiceController.getBanner());
             params.put("banner", jsonObject.get("Advertisement"));}
 
+            //// TODO: 25.01.2017 Have to check API database for username, and if its in there get the most bought item(methods are in the api) 
             if(user != null){
                 Cart cart = req.session().attribute("cart");
                 JSONObject jsonObject1 = new JSONObject(bannerServiceController.getBannerByUsernameAndCart(user, cart));
-                System.out.println("------------------------------"+ cart.getProducts().toString());
+//                System.out.println("------------------------------"+ cart.getProducts().toString());
                 params.put("banner2", jsonObject1.get("Advertisement"));}
 
         }catch (IOException | URISyntaxException e) {

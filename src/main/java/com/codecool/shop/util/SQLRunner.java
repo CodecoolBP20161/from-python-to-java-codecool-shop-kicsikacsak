@@ -11,7 +11,7 @@ public class SQLRunner {
             String line;
             Process p = Runtime.getRuntime().exec
 
-                    ("psql -U mz -d codecoolshop -h /var/run/postgresql -f src/main/sql/init_db.sql");
+                    ("psql -U svindler -d codecoolshop -h /var/run/postgresql -f src/main/sql/init_db.sql");
             BufferedReader input =
                     new BufferedReader
                             (new InputStreamReader(p.getInputStream()));
