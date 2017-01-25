@@ -117,15 +117,63 @@
 
 }
 
+@font-face {
+    font-family: Daidalos;
+    src: url('fonts/Daidalos.otf') format('opentype');
+}
+
 .btn-custom > h1
 {
-    font-size: 50px;
-    font-family: "Shree Devanagari 714", "Arial", serif;
+    font-size: 70px;
+    font-family: Daidalos, "Shree Devanagari 714", serif;
     text-transform: uppercase;
     color: black;
     font-weight: 400;
     font-stretch: semi-expanded;
     letter-spacing: 3px;
+}
 
+#btn-cart:hover
+{
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    background-color: #56504F;
+    color: white;
+}
+
+.btn-video:hover
+{
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    background-color: #56504F;
+    color: white;
+}
+
+#btn-video, #btn-cart
+{
+    display: inline-block;
+    vertical-align: top;
+}
+
+.btn-video, #btn-cart
+{
+    background-color: #2F2C2C ;
+    color: white;
+}
+
+.btn-signin, .btn-register
+{
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+}
+
+.btn-signin:after, .btn-register::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    background: black;
+    z-index: -1;
 }
 
