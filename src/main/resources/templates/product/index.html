@@ -31,15 +31,16 @@
 
 <div class="jumbotron text-center">
     <form action="/" method="get">
-        <button type="submit" class="btn-custom">
-            <h1>Codecool Shop</h1>
-        </button>
+    <button type="submit" class="btn-custom">
+        <h1>Codecool Shop</h1>
+    </button>
     </form>
-    <div id="test"></div>
+<div id="test"></div>
 </div>
-<div class="container">
-    <form action="/login" method="post" th:if="${user == null}">
-        <div class="col-sm-3">
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+    <form class="navbar-form" action="/login" method="post" th:if="${user == null}">
+        <div class="col-sm-3 form-group">
             <label for="inputEmail" class="sr-only">Email address</label>
             <input type="text" id="inputEmail" class="form-control" placeholder="Email address" required="required" autofocus="autofocus" name="username"></input>
         </div>
@@ -48,11 +49,15 @@
             <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="required" name="password"></input>
         </div>
         <div class="col-sm-3">
-            <button class="btn btn-md btn-signin btn-block" type="submit">Sign in</button>
+            <div class="text-right">
+            <button class="btn btn-md btn-signin" type="submit">Sign in</button>
+
+        </div>
         </div>
     </form>
+
     <div class="col-sm-3" th:if="${user == null}">
-        <button type="submit" class="btn btn-md btn-register btn-block" data-toggle="modal" data-target="#registration">
+        <button type="submit" class="btn btn-md btn-register" data-toggle="modal" data-target="#registration">
             Register
         </button>
     </div>
@@ -70,6 +75,7 @@
     </form>
 
 </div>
+</nav>
 <div class="row">
     <div class="col-sm-12">
         <p th:if="${loginerror == true}" id="category-title" align="center">Invalid Username or Password !!</p>
@@ -93,7 +99,6 @@
     <div class="conainer-custom">
         <div class="row">
 
-
             <div class="modal fade" id="myModal" role="dialog">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -104,7 +109,6 @@
                         <div class="modal-body">
                             <p th:text= "'Your Shopping Cart contains '+ ${cartlength} + ' items'">Shopping Cart Content</p>
                             <ul class="list-group">
-
 
                                 <table class="table" style="width:100%">
                                     <tr>
@@ -124,8 +128,6 @@
                             </ul>
                             <strong th:text=" 'Your total price: ' + ${totalsum} + ' USD'">asd</strong>
                         </div>
-
-
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -158,6 +160,7 @@
                     </div>
                 </div>
             </div>
+
         <div class="col-sm-8">
 
                 <a href="/" class="btn btn-home btn-lg">
