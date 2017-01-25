@@ -48,11 +48,11 @@
             <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="required" name="password"></input>
         </div>
         <div class="col-sm-3">
-            <button class="btn btn-md btn-primary btn-block" type="submit">Sign in</button>
+            <button class="btn btn-md btn-signin btn-block" type="submit">Sign in</button>
         </div>
     </form>
     <div class="col-sm-3" th:if="${user == null}">
-        <button type="submit" class="btn btn-md btn-success btn-block" data-toggle="modal" data-target="#registration">
+        <button type="submit" class="btn btn-md btn-register btn-block" data-toggle="modal" data-target="#registration">
             Register
         </button>
     </div>
@@ -227,20 +227,17 @@
                     <h4 class="group inner list-group-item-heading" th:text="${prod.name}">Product name</h4>
                     <p class="group inner list-group-item-text" th:text="${prod.description}">Product description... </p>
                     <div class="row">
-                        <div class="col-xs-12 col-md-6">
+                        <div class="col-sm-12 text-center">
                             <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
+                            <form action="/cart" method="post">
+                                <input type="hidden" name="prodid" value="" th:attr="value=${prod.id}"></input>
+                                <button id="btn-cart" class="btn btn-sm" type="submit">Add to cart</button>
+                                <a data-toggle="modal" data-id="" th:attr="id=${prod.getId()}" id="btn-video" class="open-modal btn btn-video btn-sm" href="" th:href="'#' +${prod.getId()}">Watch Video</a>
+                            </form>
                         </div>
-                        <div class="col-xs-12 col-md-3">
 
-                                <form action="/cart" method="post">
-                                    <input type="hidden" name="prodid" value="" th:attr="value=${prod.id}"></input>
-                                    <button class="btn btn-sm btn-success" type="submit">Add to cart</button>
 
-                                </form>
-                        </div>
-                        <div class="col-xs-12 col-md-3">
-                            <a data-toggle="modal" data-id="" th:attr="id=${prod.getId()}"  class="open-modal btn btn-success" href="" th:href="'#' +${prod.getId()}">Details</a>
-                        </div>
+
                     </div>
                 </div>
             </div>
