@@ -10,6 +10,8 @@ import com.codecool.shop.model.Product;
 import com.codecool.shop.model.User;
 import com.codecool.shop.util.SQLRunner;
 import org.json.JSONObject;
+import org.thymeleaf.resourceresolver.ClassLoaderResourceResolver;
+import org.thymeleaf.templateresolver.TemplateResolver;
 import spark.Request;
 import spark.Response;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
@@ -112,5 +114,13 @@ public class Main {
 
         // Add this line to your project to enable the debug screen
         enableDebugScreen();
+
+        // --- TEMPLATE ENGINE ---
+        TemplateResolver templateResolver = new TemplateResolver();
+        templateResolver.setTemplateMode("HTML5");
+        templateResolver.setPrefix("templates/");
+        templateResolver.setSuffix(".html");
+        templateResolver.setCacheTTLMs(3600000L);
+        templateResolver.setResourceResolver(new ClassLoaderResourceResolver());
     }
 }
