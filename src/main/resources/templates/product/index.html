@@ -86,6 +86,24 @@
     </div>
 </div>
 
+<div class="modal fade" id="videomodal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <p></p>
+            </div>
+            <div class="modal-body">
+                <div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <br> </br>
 
 <div class="container">
@@ -203,23 +221,23 @@
     <div id="products" class="row list-group">
 
         <div class="item col-xs-4 col-lg-4" th:each="prod,iterStat : ${products}">
-            <div class="modal fade" id="" th:attr="id=${prod.getId()}" role="dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <p th:text="${prod.name}"></p>
-                        </div>
-                        <div class="modal-body">
-                            <div th:utext="${video.getVideoForProduct(prod.name)}">
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!--<div class="modal fade" id="" th:attr="id=${prod.getId()}" role="dialog">-->
+                <!--<div class="modal-dialog">-->
+                    <!--<div class="modal-content">-->
+                        <!--<div class="modal-header">-->
+                            <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
+                            <!--<p th:text="${prod.name}"></p>-->
+                        <!--</div>-->
+                        <!--<div class="modal-body">-->
+                            <!--<div th:utext="${video.getVideoForProduct(prod.name)}">-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="modal-footer">-->
+                            <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
 
             <div class="thumbnail">
                 <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" th:attr="src='/img/product_' + ${prod.id} + '.jpg'" alt="" />

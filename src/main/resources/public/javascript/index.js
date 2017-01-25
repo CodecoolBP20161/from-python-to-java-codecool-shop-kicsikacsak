@@ -52,4 +52,12 @@ function checkPassword() {
     }
 }
 
+$(document).on("click", ".open-modal", function () {
+    alert("is this wotking ?");
+    var myProductId = $(this).data('id');
+    $(".modal-header #prodId").val(myProductId);
+    // As pointed out in comments,
+    // it is superfluous to have to manually call the modal.
+    // $('#addBookDialog').modal('show');
+});
 
