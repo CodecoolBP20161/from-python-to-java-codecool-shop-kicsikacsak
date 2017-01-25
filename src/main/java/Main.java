@@ -8,8 +8,13 @@ import com.codecool.shop.datafiller.ExampleData;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.User;
+
+import org.thymeleaf.resourceresolver.ClassLoaderResourceResolver;
+import org.thymeleaf.templateresolver.TemplateResolver;
+
 import com.codecool.shop.util.SQLRunner;
 import org.json.JSONObject;
+
 import spark.Request;
 import spark.Response;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
@@ -27,6 +32,14 @@ public class Main {
         exception(Exception.class, (e, req, res) -> e.printStackTrace());
         staticFileLocation("/public");
         port(8888);
+
+        // --- TEMPLATE ENGINE ---
+        TemplateResolver templateResolver = new TemplateResolver();
+        templateResolver.setTemplateMode("HTML5");
+        templateResolver.setPrefix("templates/");
+        templateResolver.setSuffix(".html");
+        templateResolver.setCacheTTLMs(3600000L);
+        templateResolver.setResourceResolver(new ClassLoaderResourceResolver());
 
         // populate some data for the memory storage
         SQLRunner.initDB();
