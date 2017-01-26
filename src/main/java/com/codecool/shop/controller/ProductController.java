@@ -10,6 +10,7 @@ import spark.Request;
 import spark.Response;
 
 import java.io.IOException;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,6 +19,28 @@ public class ProductController {
     public static boolean LOGIN_ERROR = false;
     public static boolean REGISTRATION_ERROR = false;
     public static boolean USER_SAVED = false;
+
+    public static void cartHandler(Request req, Response res) {
+        BannerServiceController bannerServiceController = new BannerServiceController();
+        Cart cart = req.session().attribute("cart");
+        User user = null;
+        try  {
+            user = req.session().attribute("user");
+
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+        try {
+            if (cart != null && user != null) {
+                JSONObject cartDetails = new JSONObject().put("user", user.getUsername()).put("cart", cart.getCartForApi()).put("apikey", 1234);
+                JSONObject json = bannerServiceController.getBannerByUsernameAndCart(cartDetails);
+                cart.emptyCart();
+                System.out.println(json);
+                }
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+        }
+    }
 
     //handle the basic rendering, and the session
     private static void eventHandler(SupplierDao supplierDataStore, ProductCategoryDao productCategoryDataStore, Map<Object, Object> params, Request req) {
@@ -55,14 +78,17 @@ public class ProductController {
         try {
             if(user == null){
             JSONObject jsonObject = new JSONObject(bannerServiceController.getBanner());
+            System.out.println("Basic reklám");
             params.put("banner", jsonObject.get("Advertisement"));}
 
-            //// TODO: 25.01.2017 Have to check API database for username, and if its in there get the most bought item(methods are in the api) 
             if(user != null){
-                Cart cart = req.session().attribute("cart");
-                JSONObject jsonObject1 = new JSONObject(bannerServiceController.getBannerByUsernameAndCart(user, cart));
-//                System.out.println("------------------------------"+ cart.getProducts().toString());
-                params.put("banner2", jsonObject1.get("Advertisement"));}
+                JSONObject cartDetails = new JSONObject().put("user", user.getUsername()).put("apikey", 1234);
+
+                JSONObject json = bannerServiceController.getBannerByUsernameAndCart(cartDetails);
+                params.put("banner", json.get("Advertisement"));
+
+
+            }
 
         }catch (IOException | URISyntaxException e) {
             System.out.print(e);
@@ -110,10 +136,10 @@ public class ProductController {
 
     }
 
-    public static ModelAndView renderCheckout(Request request, Response response) {
-        Map<Object, Object> params = new HashMap<>();
-        eventHandler(DataStoreSwitcher.getSupplierDao(), DataStoreSwitcher.getProductCategoryDao(), params, request);
-        return new ModelAndView(params, "product/checkout");
-    }
+//    public static ModelAndView renderCheckout(Request request, Response response) {
+//        Map<Object, Object> params = new HashMap<>();
+//        eventHandler(DataStoreSwitcher.getSupplierDao(), DataStoreSwitcher.getProductCategoryDao(), params, request);
+//        return new ModelAndView(params, "product/checkout");
+//    }
 
 }

@@ -46,7 +46,11 @@ public class Main {
             return "";
         });
 
-        get("/checkout", ProductController::renderCheckout, new ThymeleafTemplateEngine());
+        get("/checkout", (Request req, Response res) -> {
+            ProductController.cartHandler(req, res);
+            res.redirect("/");
+            return "";
+        });
 
         get("/logout", (Request req, Response res) -> {
             req.session().attribute("user", null);
