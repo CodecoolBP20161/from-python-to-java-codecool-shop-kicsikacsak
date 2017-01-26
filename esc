@@ -1,0 +1,52 @@
+[1mdiff --git a/src/main/java/Main.java b/src/main/java/Main.java[m
+[1mindex b789b56..0e8804b 100644[m
+[1m--- a/src/main/java/Main.java[m
+[1m+++ b/src/main/java/Main.java[m
+[36m@@ -126,11 +126,5 @@[m [mpublic class Main {[m
+         enableDebugScreen();[m
+ [m
+         // --- TEMPLATE ENGINE ---[m
+[31m-        TemplateResolver templateResolver = new TemplateResolver();[m
+[31m-        templateResolver.setTemplateMode("HTML5");[m
+[31m-        templateResolver.setPrefix("templates/");[m
+[31m-        templateResolver.setSuffix(".html");[m
+[31m-        templateResolver.setCacheTTLMs(3600000L);[m
+[31m-        templateResolver.setResourceResolver(new ClassLoaderResourceResolver());[m
+     }[m
+ }[m
+[1mdiff --git a/src/main/resources/public/css/custom.css b/src/main/resources/public/css/custom.css[m
+[1mindex 74ef69c..28cb925 100644[m
+[1m--- a/src/main/resources/public/css/custom.css[m
+[1m+++ b/src/main/resources/public/css/custom.css[m
+[36m@@ -112,7 +112,7 @@[m
+ [m
+ @font-face {[m
+     font-family: Daidalos;[m
+[31m-    src: url('fonts/Daidalos.otf') format('opentype');[m
+[32m+[m[32m    src: url('/fonts/Daidalos.otf') format('opentype');[m
+ }[m
+ [m
+ .btn-custom > h1[m
+[1mdiff --git a/src/main/resources/templates/product/index.html b/src/main/resources/templates/product/index.html[m
+[1mindex ace04b2..6951c85 100644[m
+[1m--- a/src/main/resources/templates/product/index.html[m
+[1m+++ b/src/main/resources/templates/product/index.html[m
+[36m@@ -238,9 +238,6 @@[m
+                                 <a data-toggle="modal" data-id="" th:attr="id=${prod.getId()}" id="btn-video" class="open-modal btn btn-video btn-sm" href="" th:href="'#' +${prod.getId()}">Watch Video</a>[m
+                             </form>[m
+                         </div>[m
+[31m-[m
+[31m-[m
+[31m-                                </form>[m
+                         </div>[m
+                         <div class="col-xs-12 col-md-3">[m
+                             <a data-toggle="modal" data-id="" th:attr="data-id=${prod.getId()}"  class="open-modal btn btn-success" href="" th:href="'#' +${prod.getId()}">Details</a>[m
+[36m@@ -253,8 +250,6 @@[m
+     </div>[m
+ [m
+ </div>[m
+[31m-[m
+[31m-</div>[m
+ <div th:replace="footer :: copy"></div>[m
+ <script type="text/javascript" src="/javascript/index.js"></script>[m
+ <!-- jQuery library -->[m

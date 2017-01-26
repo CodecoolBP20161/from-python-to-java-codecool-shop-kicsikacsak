@@ -54,8 +54,6 @@ function checkPassword() {
 
 $(document).on("click", ".open-modal", function () {
     var myProductId = $(this).data('id');
-    // alert(myProductId);
-    // alert(setIdForModal(myProductId));
     setIdForModal(myProductId);
     // As pointed out in comments,
     // it is superfluous to have to manually call the modal.
@@ -83,8 +81,6 @@ function fillData(json) {
     var video = document.getElementsByClassName("productVideo");
     $(video).append(json.videourl);
     $(productName).append(json.name);
-
-    $(video).innerText = json.videourl;
 
 }
 

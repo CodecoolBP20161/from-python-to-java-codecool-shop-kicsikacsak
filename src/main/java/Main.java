@@ -14,7 +14,6 @@ import org.thymeleaf.templateresolver.TemplateResolver;
 
 import com.codecool.shop.util.SQLRunner;
 import org.json.JSONObject;
-
 import spark.Request;
 import spark.Response;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
@@ -50,7 +49,6 @@ public class Main {
             VideoServiceController videoServiceController = new VideoServiceController();
             ProductDaoJdbc productDaoJdbc = ProductDaoJdbc.getInstance();
             String videoUrl = videoServiceController.getVideoForProduct(productDaoJdbc.find(productId).getName());
-            System.out.println(videoUrl);
             return new JSONObject()
                     .put("videourl", videoUrl)
                     .put("name", productDaoJdbc.find(productId).getName())
@@ -125,5 +123,7 @@ public class Main {
 
         // Add this line to your project to enable the debug screen
         enableDebugScreen();
+
+        // --- TEMPLATE ENGINE ---
     }
 }

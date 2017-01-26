@@ -37,7 +37,7 @@
     </form>
 <div id="test"></div>
 </div>
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse" th:if="${user == null}">
     <div class="container-fluid">
     <form class="navbar-form" action="/login" method="post" th:if="${user == null}">
         <div class="col-sm-3 form-group">
@@ -61,21 +61,22 @@
             Register
         </button>
     </div>
-    <form action="/logout" method="get" th:if="${user != null}">
-        <div class="col-sm-3">
-            <div class="row">
-                <div id="category-title">
-                    <p th:text="${'Logged in as: ' + user.getUsername()}"></p>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-sm btn-success btn-block">
-                Log Out
-            </button>
-        </div>
-    </form>
 
 </div>
 </nav>
+
+<form action="/logout" method="get" th:if="${user != null}">
+    <div class="col-sm-3">
+        <div class="row">
+            <div id="category-title">
+                <p th:text="${'Logged in as: ' + user.getUsername()}"></p>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-sm btn-success btn-block">
+            Log Out
+        </button>
+    </div>
+</form>
 <div class="row">
     <div class="col-sm-12">
         <p th:if="${loginerror == true}" id="category-title" align="center">Invalid Username or Password !!</p>
@@ -235,17 +236,13 @@
                             <form action="/cart" method="post">
                                 <input type="hidden" name="prodid" value="" th:attr="value=${prod.id}"></input>
                                 <button id="btn-cart" class="btn btn-sm" type="submit">Add to cart</button>
-                                <a data-toggle="modal" data-id="" th:attr="id=${prod.getId()}" id="btn-video" class="open-modal btn btn-video btn-sm" href="" th:href="'#' +${prod.getId()}">Watch Video</a>
+                                <a data-toggle="modal" data-id="" th:attr="data-id=${prod.getId()}" id="btn-video" class="open-modal btn btn-video btn-sm" href="" th:href="'#' +${prod.getId()}">Watch Video</a>
                             </form>
                         </div>
-
-                        </div>
-                        <div class="col-xs-12 col-md-3">
-                            <a data-toggle="modal" data-id="" th:attr="data-id=${prod.getId()}"  class="open-modal btn btn-success" href="" th:href="'#' +${prod.getId()}">Details</a>
-                        </div>
-
                     </div>
+
                 </div>
+            </div>
             </div>
         </div>
     </div>
