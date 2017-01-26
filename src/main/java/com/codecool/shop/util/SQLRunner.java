@@ -10,8 +10,8 @@ public class SQLRunner {
         try {
             String line;
             Process p = Runtime.getRuntime().exec
+                    ("psql -U svindler -d codecoolshop -h /var/run/postgresql -f src/main/sql/init_db.sql");
 
-            ("psql -U doramedgyasszay -d codecoolshop -h /usr/local/share/postgresql -f src/main/sql/init_db.sql");
             BufferedReader input =
                     new BufferedReader
                             (new InputStreamReader(p.getInputStream()));
@@ -25,3 +25,4 @@ public class SQLRunner {
         }
     }
 }
+

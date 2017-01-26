@@ -62,13 +62,13 @@ public class ProductDaoJdbc implements ProductDao {
                 ProductCategory pcategory = productCategoryDaoJdbc.find(resultSet.getInt("category"));
                 SupplierDaoJdbc supplierDaoJdbc = SupplierDaoJdbc.getInstance();
                 Supplier supplier = supplierDaoJdbc.find(resultSet.getInt("supplier"));
-                Product product = new Product(resultSet.getString("name"),
+                Product product = new Product(resultSet.getInt("id"),
+                        resultSet.getString("name"),
                         resultSet.getFloat("default_price"),
                         resultSet.getString("currency"),
                         resultSet.getString("description"),
                         pcategory,
                         supplier);
-
                 return product;
             } else {
                 return null;

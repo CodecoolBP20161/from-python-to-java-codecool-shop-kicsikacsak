@@ -8,6 +8,7 @@ import com.codecool.shop.datafiller.ExampleData;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.User;
+import com.codecool.shop.util.SQLRunner;
 
 import org.thymeleaf.resourceresolver.ClassLoaderResourceResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
@@ -71,7 +72,11 @@ public class Main {
             return "";
         });
 
-        get("/checkout", ProductController::renderCheckout, new ThymeleafTemplateEngine());
+        get("/checkout", (Request req, Response res) -> {
+            ProductController.cartHandler(req, res);
+            res.redirect("/");
+            return "";
+        });
 
         get("/logout", (Request req, Response res) -> {
             req.session().attribute("user", null);
@@ -112,6 +117,7 @@ public class Main {
             res.redirect("/");
             return "";
         });
+
 
 
         // Always start with more specific routes
