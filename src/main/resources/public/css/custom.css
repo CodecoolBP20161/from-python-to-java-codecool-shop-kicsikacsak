@@ -61,16 +61,9 @@
     margin: 0 0 11px;
 }
 
-#filter1, #filter2, .btn-home, .btn-cart
-{
-    background: linear-gradient( #e6e6e6, #cccccc);
-    border-color: whitesmoke;
-    color: black;
-}
-
 .btn-home
 {
-    display: inline;
+    display: inline-block;
     padding: 7px 11px;
     font-weight: 400;
     border-radius: 4px;
@@ -92,7 +85,7 @@
     margin-bottom: 10px
 }
 
-#category-title
+#category-title, #welcome
 {
     text-align: center;
     text-transform: uppercase;
@@ -112,20 +105,101 @@
 
 .jumbotron
 {
-    background-size: 1300px 360px;
+    background-size: 1300px 300px;
     background-color: white;
 
 }
 
+@font-face {
+    font-family: Daidalos;
+    src: url('/fonts/Daidalos.otf') format('opentype');
+}
+
 .btn-custom > h1
 {
-    font-size: 50px;
-    font-family: "Shree Devanagari 714", "Arial", serif;
+    font-size: 70px;
+    font-family: Daidalos, "Shree Devanagari 714", serif;
     text-transform: uppercase;
     color: black;
     font-weight: 400;
     font-stretch: semi-expanded;
     letter-spacing: 3px;
+}
+
+#btn-cart:hover
+{
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    background-color: #56504F;
+    color: white;
+}
+
+.btn-video:hover
+{
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    background-color: #56504F;
+    color: white;
+}
+
+#btn-video, #btn-cart
+{
+    display: inline-block;
+    vertical-align: top;
+}
+
+.btn-video, #btn-cart, .btn-cart, .btn-home, #btn-categ, #btn-supplier, .btn-logout, .btn-checkout
+{
+    background-color: #2F2C2C ;
+    color: white;
+}
+
+.btn-logout
+{
+    width: 50%;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.dropdown-menu-left
+{
+   background-color: #cccccc;
+}
+
+.btn-home:hover
+{
+    color: white;
+}
+
+.btn-signin, .btn-register
+{
+    background-color: #cccccc;
+    color: black;
+    width: 60%;
+}
+
+.btn-cart:hover
+{
+    color: white;
+}
+
+#inputEmail, #inputPassword
+{
+    width: 100%;
+}
+
+#logged-in
+{
+    float: right;
 
 }
 
+#welcome
+{
+    display: inline-block;
+}
+
+#wrapper, .btn-logout
+{
+
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
