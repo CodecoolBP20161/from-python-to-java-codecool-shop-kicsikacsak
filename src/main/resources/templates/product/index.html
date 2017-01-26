@@ -235,15 +235,9 @@
                             <form action="/cart" method="post">
                                 <input type="hidden" name="prodid" value="" th:attr="value=${prod.id}"></input>
                                 <button id="btn-cart" class="btn btn-sm" type="submit">Add to cart</button>
-                                <a data-toggle="modal" data-id="" th:attr="id=${prod.getId()}" id="btn-video" class="open-modal btn btn-video btn-sm" href="" th:href="'#' +${prod.getId()}">Watch Video</a>
+                                <a data-toggle="modal" data-id="" th:attr="data-id=${prod.getId()}" id="btn-video" class="open-modal btn btn-video btn-sm" href="" th:href="'#' +${prod.getId()}">Watch Video</a>
                             </form>
                         </div>
-
-
-                                </form>
-                        </div>
-                        <div class="col-xs-12 col-md-3">
-                            <a data-toggle="modal" data-id="" th:attr="data-id=${prod.getId()}"  class="open-modal btn btn-success" href="" th:href="'#' +${prod.getId()}">Details</a>
                         </div>
 
                     </div>
@@ -251,8 +245,6 @@
             </div>
         </div>
     </div>
-
-</div>
 
 </div>
 <div th:replace="footer :: copy"></div>

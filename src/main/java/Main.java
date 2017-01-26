@@ -126,11 +126,5 @@ public class Main {
         enableDebugScreen();
 
         // --- TEMPLATE ENGINE ---
-        TemplateResolver templateResolver = new TemplateResolver();
-        templateResolver.setTemplateMode("HTML5");
-        templateResolver.setPrefix("templates/");
-        templateResolver.setSuffix(".html");
-        templateResolver.setCacheTTLMs(3600000L);
-        templateResolver.setResourceResolver(new ClassLoaderResourceResolver());
     }
 }
