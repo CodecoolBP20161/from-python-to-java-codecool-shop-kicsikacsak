@@ -37,39 +37,46 @@
     </form>
 <div id="test"></div>
 </div>
-<div class="container">
-    <form action="/login" method="post" th:if="${user == null}">
-        <div class="col-sm-3">
+<nav class="navbar navbar-inverse" th:if="${user == null}">
+    <div class="container-fluid">
+    <form class="navbar-form" action="/login" method="post" th:if="${user == null}">
+        <div class="col-sm-3 form-group">
             <label for="inputEmail" class="sr-only">Email address</label>
-            <input type="text" id="inputEmail" class="form-control" placeholder="Email address" required="required" autofocus="autofocus" name="username"></input>
+            <input type="text" id="inputEmail" class="form-control" placeholder="Username" required="required" autofocus="autofocus" name="username"></input>
         </div>
         <div class="col-sm-3">
             <label for="inputPassword" class="sr-only">Password</label>
             <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="required" name="password"></input>
         </div>
         <div class="col-sm-3">
-            <button class="btn btn-md btn-primary btn-block" type="submit">Sign in</button>
+            <div class="text-right">
+            <button class="btn btn-md btn-signin" type="submit">Sign in</button>
+
         </div>
-    </form>
-    <div class="col-sm-3" th:if="${user == null}">
-        <button type="submit" class="btn btn-md btn-success btn-block" data-toggle="modal" data-target="#registration">
-            Register
-        </button>
-    </div>
-    <form action="/logout" method="get" th:if="${user != null}">
-        <div class="col-sm-3">
-            <div class="row">
-                <div id="category-title">
-                    <p th:text="${'Logged in as: ' + user.getUsername()}"></p>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-sm btn-success btn-block">
-                Log Out
-            </button>
         </div>
     </form>
 
+    <div class="col-sm-3" th:if="${user == null}">
+        <button type="submit" class="btn btn-md btn-register" data-toggle="modal" data-target="#registration">
+            Register
+        </button>
+    </div>
+
 </div>
+</nav>
+
+<form action="/logout" method="get" th:if="${user != null}">
+    <div class="col-sm-4" id="logged-in" >
+            <div class="row" id="wrapper">
+            <div id="welcome">
+                <p th:text="${'Welcome, ' + user.getUsername()}"></p>
+            </div>
+         </div>
+        <button type="submit" class="btn btn-sm btn-logout btn-block">
+            Log Out
+        </button>
+    </div>
+</form>
 <div class="row">
     <div class="col-sm-12">
         <p th:if="${loginerror == true}" id="category-title" align="center">Invalid Username or Password !!</p>
@@ -86,13 +93,30 @@
     </div>
 </div>
 
+<div  class="modal fade video_for_product" id="1" role="dialog" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <p class="productName"></p>
+            </div>
+            <div class="modal-body">
+                <div class="productVideo">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default closemodal" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <br> </br>
 
 <div class="container">
 
     <div class="conainer-custom">
         <div class="row">
-
 
             <div class="modal fade" id="myModal" role="dialog">
                 <div class="modal-dialog">
@@ -104,7 +128,6 @@
                         <div class="modal-body">
                             <p th:text= "'Your Shopping Cart contains '+ ${cartlength} + ' items'">Shopping Cart Content</p>
                             <ul class="list-group">
-
 
                                 <table class="table" style="width:100%">
                                     <tr>
@@ -125,13 +148,11 @@
                             <strong th:text=" 'Your total price: ' + ${totalsum} + ' USD'">asd</strong>
                         </div>
 
-
-
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
                             <form action="/checkout" method="get">
-                                <button th:if="${user != null}" type="submit" class="btn btn-primary">Checkout</button>
-                                <button th:if="${user == null}" type="submit" class="btn btn-primary" disabled="disabled">Checkout</button>
+                                <button th:if="${user != null}" type="submit" class="btn btn-checkout">Checkout</button>
+                                <button th:if="${user == null}" type="submit" class="btn btn-checkout" disabled="disabled">Checkout</button>
                             </form>
                         </div>
                     </div>
@@ -151,18 +172,20 @@
                             </div>
                         </div>
                         <div class="modal-body">
+                            <div class="container-fluid" th:replace="registration :: registration"></div>
+
                         </div>
-                        <div class="container-fluid" th:replace="registration :: registration"></div>
 
                     </div>
                 </div>
             </div>
+
         <div class="col-sm-8">
 
                 <a href="/" class="btn btn-home btn-lg">
                 <span class="glyphicon glyphicon-home"></span> Home
                 </a>
-                <button class="btn dropdown-toggle" id="filter1" type="button" data-toggle="dropdown">Category
+                <button class="btn dropdown-toggle" id="btn-categ" type="button" data-toggle="dropdown">Category
                     <span class="caret"></span></button>
                     <ul class="dropdown-menu dropdown-menu-left">
 
@@ -175,7 +198,7 @@
                         <li role="presentation"><a href="/">All</a></li>
                     </ul>
             <div class="btn-group">
-                <button class="btn dropdown-toggle" id="filter2" type="button" data-toggle="dropdown">Supplier
+                <button class="btn dropdown-toggle" id="btn-supplier" type="button" data-toggle="dropdown">Supplier
                     <span class="caret"></span></button>
                     <ul class="dropdown-menu dropdown-menu-left">
                         <li th:each="supp : ${allsuppliers}"><a href="/filter" id="tablet" th:attr="href='/supplier/' + ${supp.id}" th:text="${supp.name}">Amazon</a></li>
@@ -201,32 +224,35 @@
     <div id="products" class="row list-group">
 
         <div class="item col-xs-4 col-lg-4" th:each="prod,iterStat : ${products}">
+
             <div class="thumbnail">
                 <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" th:attr="src='/img/product_' + ${prod.id} + '.jpg'" alt="" />
                 <div class="caption">
                     <h4 class="group inner list-group-item-heading" th:text="${prod.name}">Product name</h4>
                     <p class="group inner list-group-item-text" th:text="${prod.description}">Product description... </p>
                     <div class="row">
-                        <div class="col-xs-12 col-md-6">
+                        <div class="col-sm-12 text-center">
                             <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
-                        </div>
-                        <div class="col-xs-12 col-md-6">
                             <form action="/cart" method="post">
-
                                 <input type="hidden" name="prodid" value="" th:attr="value=${prod.id}"></input>
-
-                                <button class="btn btn-success" type="submit">Add to cart</button>
-
+                                <button id="btn-cart" class="btn btn-sm" type="submit">Add to cart</button>
+                                <a data-toggle="modal" data-id="" th:attr="data-id=${prod.getId()}" id="btn-video" class="open-modal btn btn-video btn-sm" href="" th:href="'#' +${prod.getId()}">Watch Video</a>
                             </form>
                         </div>
                     </div>
+
                 </div>
+            </div>
             </div>
         </div>
     </div>
+        <div th:utext="${banner}"></div>
+        <div th:utext="${banner2}"></div>
+        <div th:utext="${banner3}"></div>
+</div>
 
-</div>
-</div>
+
+
 
 <div th:replace="footer :: copy"></div>
 <script type="text/javascript" src="/javascript/index.js"></script>

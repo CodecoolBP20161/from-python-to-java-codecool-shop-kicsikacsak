@@ -1,7 +1,6 @@
 DROP TABLE IF EXISTS product;
 DROP TABLE IF EXISTS categories;
 DROP TABLE IF EXISTS supplier;
-DROP TABLE IF EXISTS webshopuser;
 
 
 CREATE TABLE categories

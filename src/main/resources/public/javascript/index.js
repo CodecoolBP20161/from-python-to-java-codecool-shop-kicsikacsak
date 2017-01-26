@@ -52,3 +52,52 @@ function checkPassword() {
     }
 }
 
+$(document).on("click", ".open-modal", function () {
+    var myProductId = $(this).data('id');
+    setIdForModal(myProductId);
+    // As pointed out in comments,
+    // it is superfluous to have to manually call the modal.
+    $('#' + myProductId).modal('show');
+});
+
+$(document).on("click", ".closemodal", function () {
+    $("#video_for_product").empty();
+
+
+});
+
+$(".modal").on("hidden.bs.modal", function(){
+    $(".productVideo").html("");
+    $(".productName").html("");
+});
+
+function setIdForModal(productId) {
+    var modal =  document.getElementsByClassName("video_for_product");
+    $(modal).attr('id', productId);
+    getData(productId);
+    return true;
+}
+
+function fillData(json) {
+    var productName = document.getElementsByClassName("productName");
+    var video = document.getElementsByClassName("productVideo");
+    $(video).append(json.videourl);
+    $(productName).append(json.name);
+
+}
+
+function getData (productId) {
+    $.ajax({
+        type: "POST",
+        url: '/getdata',
+        data: JSON.stringify({"productid": productId, "status":"done"}),
+        async: false,
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        success: function (json) {
+            data = json;
+            fillData(data)
+        }
+    });
+}
+
