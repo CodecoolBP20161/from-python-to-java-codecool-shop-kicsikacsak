@@ -63,10 +63,12 @@ $(document).on("click", ".open-modal", function () {
 $(document).on("click", ".closemodal", function () {
     $("#video_for_product").empty();
 
+
 });
 
 $(".modal").on("hidden.bs.modal", function(){
     $(".productVideo").html("");
+    $(".productName").html("");
 });
 
 function setIdForModal(productId) {

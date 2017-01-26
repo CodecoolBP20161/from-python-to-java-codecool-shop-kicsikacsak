@@ -42,7 +42,7 @@
     <form class="navbar-form" action="/login" method="post" th:if="${user == null}">
         <div class="col-sm-3 form-group">
             <label for="inputEmail" class="sr-only">Email address</label>
-            <input type="text" id="inputEmail" class="form-control" placeholder="Email address" required="required" autofocus="autofocus" name="username"></input>
+            <input type="text" id="inputEmail" class="form-control" placeholder="Username" required="required" autofocus="autofocus" name="username"></input>
         </div>
         <div class="col-sm-3">
             <label for="inputPassword" class="sr-only">Password</label>
@@ -66,13 +66,13 @@
 </nav>
 
 <form action="/logout" method="get" th:if="${user != null}">
-    <div class="col-sm-3">
-        <div class="row">
-            <div id="category-title">
-                <p th:text="${'Logged in as: ' + user.getUsername()}"></p>
+    <div class="col-sm-4" id="logged-in" >
+            <div class="row" id="wrapper">
+            <div id="welcome">
+                <p th:text="${'Welcome, ' + user.getUsername()}"></p>
             </div>
-        </div>
-        <button type="submit" class="btn btn-sm btn-success btn-block">
+         </div>
+        <button type="submit" class="btn btn-sm btn-logout btn-block">
             Log Out
         </button>
     </div>
@@ -149,10 +149,10 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
                             <form action="/checkout" method="get">
-                                <button th:if="${user != null}" type="submit" class="btn btn-primary">Checkout</button>
-                                <button th:if="${user == null}" type="submit" class="btn btn-primary" disabled="disabled">Checkout</button>
+                                <button th:if="${user != null}" type="submit" class="btn btn-checkout">Checkout</button>
+                                <button th:if="${user == null}" type="submit" class="btn btn-checkout" disabled="disabled">Checkout</button>
                             </form>
                         </div>
                     </div>
