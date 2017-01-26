@@ -49,7 +49,6 @@ public class Main {
             VideoServiceController videoServiceController = new VideoServiceController();
             ProductDaoJdbc productDaoJdbc = ProductDaoJdbc.getInstance();
             String videoUrl = videoServiceController.getVideoForProduct(productDaoJdbc.find(productId).getName());
-            System.out.println(videoUrl);
             return new JSONObject()
                     .put("videourl", videoUrl)
                     .put("name", productDaoJdbc.find(productId).getName())
